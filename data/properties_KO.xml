@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This XML file allows us to easily customize the look and language used
+    in our program's user interface. Note that this is for customizing settings
+    for the Course Schedule Builder interface, NOT the Web page that we're building. 
+-->
+<properties>
+    <property_list>    
+        <property name="TITLE_WINDOW"		value="슬라이드 쇼 제작기"></property>  
+        
+        <!-- PROGRAM ICON FILES -->
+	
+        <!-- TOOLTIPS FOR BUTTONS -->
+        <property name="TOOLTIP_NEW_SLIDE_SHOW"	    value="새로운 슬라이드 생성"></property>
+        <property name="TOOLTIP_LOAD_SLIDE_SHOW"    value="기존 슬라이드 불러오기"></property>
+        <property name="TOOLTIP_SAVE_SLIDE_SHOW"    value="이 슬라이드 쇼를 저장하기"></property>
+        <property name="TOOLTIP_VIEW_SLIDE_SHOW"    value="이 슬라이드 쇼를 보기"></property>
+        <property name="TOOLTIP_EXIT"		    value="종료"></property>
+	<property name="TOOLTIP_ADD_SLIDE"	    value="슬라이드 추가"></property>
+	<property name="TOOLTIP_REMOVE_SLIDE"	    value="슬라이드 제거"></property>
+	<property name="TOOLTIP_MOVE_UP"	    value="슬라이드를 상단으로"></property>
+	<property name="TOOLTIP_MOVE_DOWN"	    value="슬라이드를 하단으로"></property>
+	<property name="TOOLTIP_PREVIOUS_SLIDE"	    value="이전 슬라이드"></property>
+	<property name="TOOLTIP_NEXT_SLIDE"	    value="다음 슬라이드"></property>
+	
+	<!-- DEFAULT VALUES -->
+	<property name="DEFAULT_IMAGE_CAPTION"	    value="주석 입력"></property>
+	<property name="DEFAULT_SLIDE_SHOW_TITLE"   value="제목 입력"></property>
+	
+	<!-- UI LABELS -->
+	<property name="LABEL_CAPTION"		    value="주석.:"></property>
+	<property name="TITLE_MODIFIER_WINDOW"			value="새 슬라이드 제목:"></property>
+	<property name="TITLE_MODIFIER_HEADER"			value="슬라이드 제목을 입력해 주십시오"></property>
+    <property name="SUBMIT_CAPTION"			value="주석 저장"></property>    
+	<!-- PROMPTS -->
+	<property name="SAVE_PROMPT"			value="저장 하시겠습니까?"></property>
+	<property name="YES_SELECTION"			value="네"></property>
+	<property name="NO_SELECTION"			value="아니오"></property>
+	<property name="CANCEL_SELECTION"		value="취소"></property>
+	<property name="SLIDESHOW_DIALOG"		value="슬라이드 쇼 알림창"></property>
+	<property name="CONGRATURATION"			value="축하합니다"></property>
+	<property name="CREATED_MESSAGE"		value="슬라이드 쇼가 생성 되었습니다."></property>
+	
+	<!-- ERROR TYPE -->
+	<property name="ERROR_OCCURED"			value="문제가 발생하였습니다!"></property>
+	<property name="IMAGE_MISSING"			value="이미지를 찾을 수 없습니다."></property>
+	<property name="LOAD_FAILED"			value="슬라이드 쇼를 불러올수 없습니다."></property>	
+
+	
+	
+        <!-- GUI LABELS -->
+        <property name="COURSE_HEADING_LABEL"           value="강의 상세 정보"></property>
+        <property name="COURSE_INFO_LABEL"              value="강의 정보"></property>
+        <property name="COURSE_SUBJECT_LABEL"           value="과목:"></property>
+        <property name="COURSE_NUMBER_LABEL"            value="번호:"></property>
+        <property name="COURSE_SEMESTER_LABEL"          value="학기:"></property>
+        <property name="COURSE_YEAR_LABEL"              value="년도:"></property>
+        <property name="COURSE_TITLE_LABEL"             value="제목:"></property>
+        <property name="INSTRUCTOR_NAME_LABEL"          value="교육자 이름:"></property>
+        <property name="INSTRUCTOR_URL_LABEL"           value="교육자 홈페이지:"></property>
+        <property name="PAGES_SELECTION_HEADING_LABEL"  value="사이트 페이지"></property>
+        <property name="SCHEDULE_HEADING_LABEL"         value="강의 일정"></property>
+        <property name="DATE_BOUNDARIES_LABEL"          value="강의 날짜"></property>
+        <property name="STARTING_MONDAY_LABEL"          value="월요일 개강:"></property>
+        <property name="ENDING_FRIDAY_LABEL"            value="금요일 종강:"></property>
+        <property name="LECTURE_DAY_SELECT_LABEL"       value="강의 일수"></property>
+    </property_list>
+    <property_options_list>
+    </property_options_list>
+</properties>

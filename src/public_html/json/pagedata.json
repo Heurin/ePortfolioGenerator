@@ -1,0 +1,230 @@
+{
+	"title": "Seunghyuk Sean Choi",
+	"pages": [{
+                    "subtitle" : "Welcome",
+                    "components" : [
+                    {
+                            "type" : "text",
+                            "content" : "Welcome to my ePortfolio page. My name is Seunghyuk Choi(Sean). I am a new transfer student attending Stony brook University. I am technically a junior based on my transferred credits. "
+                    },
+                    {
+                            "type" : "image",
+                            "image_file_name" : "IMG_20151103_174829.jpg",
+                            "image_path" : "data/img/"
+                    },
+                    {
+                            "type" : "video" ,
+                            "video_file_name" : "1.mp4" ,
+                            "video_path" : "data/video/"
+                    }]
+            },
+            {
+                    "subtitle" : "About me",
+                    "components" : [
+                {
+                            "type" : "text",
+                            "content" : "I moved to the United Stated in the summer of 2008 when I was 16. It has been 7 years and few months now. <br> Now I am 22 years old. I love to play Video games and read, watch manga and anime."
+                 }]
+            },
+                {
+                    "subtitle" : "Skills",
+                    "components" : [
+                    {
+                            "type" : "text",
+                            "content" : "<ul><li>C++</li><li>Java</li><li>c#</li><li>Basic Microsoft Office</li><li>Linux</li>"
+                    },			
+                    {
+                        "type" : "slideshow",
+                        "slides" : [{
+                                "image_file_name": "1.jpg",
+                                "image_path": "data/img/",
+                                "caption" : "1"
+                            },
+                            {
+                                "image_file_name": "2.png",
+                                "image_path" : "data/img/",
+                                "caption" : "2"
+                            }
+                        ]
+                }]
+                },
+                {
+                    "subtitle" : "Gallery",
+                    "components" : [
+                    {
+                        "type" : "image",
+                        "image_file_name" : "IMG_20151007_163713-EFFECTS.jpg",
+                        "image_path" : "data/img/"
+                    },
+					{
+						"type" : "video",
+						"video_file_name" : "leagueplay.mp4",
+						"video_path" : "data/video/"
+					},
+					{
+						"type" : "video",
+						"video_file_name" : "VID_20151028_171225.mp4",
+						"video_path" : "data/video/"
+					},					
+					{
+						"type" : "slideshow",
+						"slides" : [{
+							"image_file_name": "img1.jpg",
+							"image_path" : "data/img/",
+							"caption" : "1"
+						},
+						{
+							"image_file_name": "img1.jpg",
+							"image_path" : "data/img/",
+							"caption" : "2"
+						},
+												{
+							"image_file_name": "img3.jpg",
+							"image_path" : "data/img/",
+							"caption" : "3"
+						},
+												{
+							"image_file_name": "img4.jpg",
+							"image_path" : "data/img/",
+							"caption" : "4"
+						},
+												{
+							"image_file_name": "img5.jpg",
+							"image_path" : "data/img/",
+							"caption" : "5"
+						},
+						{
+							"image_file_name": "img6.jpg",
+							"image_path" : "data/img/",
+							"caption" : "6"
+						},
+						{
+							"image_file_name": "img7.jpg",
+							"image_path" : "data/img/",
+							"caption" : "7"
+						},
+						{
+							"image_file_name": "img8.jpg",
+							"image_path" : "data/img/",
+							"caption" : "8"
+						},						
+						{
+							"image_file_name": "img9.jpg",
+							"image_path" : "data/img/",
+							"caption" : "9"
+						},
+						{
+							"image_file_name": "img10.jpg",
+							"image_path" : "data/img/",
+							"caption" : "10"
+						},
+						{
+							"image_file_name": "img11.jpg",
+							"image_path" : "data/img/",
+							"caption" : "11"
+						},
+						{
+							"image_file_name": "img12.jpg",
+							"image_path" : "data/img/",
+							"caption" : "12"
+						},						
+						{
+							"image_file_name": "img13.jpg",
+							"image_path" : "data/img/",
+							"caption" : "13"
+						},					
+						{
+							"image_file_name": "img14.jpg",
+							"image_path" : "data/img/",
+							"caption" : "14"
+						},					
+						{
+							"image_file_name": "img15.jpg",
+							"image_path" : "data/img/",
+							"caption" : "15"
+						},					
+						{
+							"image_file_name": "img16.jpg",
+							"image_path" : "data/img/",
+							"caption" : "16"
+						},
+						{
+							"image_file_name": "img17.jpg",
+							"image_path" : "data/img/",
+							"caption" : "17"
+						},
+						{
+							"image_file_name": "img18.jpg",
+							"image_path" : "data/img/",
+							"caption" : "18"
+						},
+						{
+							"image_file_name": "img19.jpg",
+							"image_path" : "data/img/",
+							"caption" : "19"
+						},					
+						{
+							"image_file_name": "img20.jpg",
+							"image_path" : "data/img/",
+							"caption" : "20"
+						},					
+						{
+							"image_file_name": "img21.jpg",
+							"image_path" : "data/img/",
+							"caption" : "21"
+						},						
+						{
+							"image_file_name": "img22.jpg",
+							"image_path" : "data/img/",
+							"caption" : "22"
+						},						
+						{
+							"image_file_name": "img23.jpg",
+							"image_path" : "data/img/",
+							"caption" : "23"
+						},					
+						{
+							"image_file_name": "img24.jpg",
+							"image_path" : "data/img/",
+							"caption" : "24"
+						},					
+						{
+							"image_file_name": "img25.jpg",
+							"image_path" : "data/img/",
+							"caption" : "25"
+						},					
+						{
+							"image_file_name": "img26.jpg",
+							"image_path" : "data/img/",
+							"caption" : "26"
+						},
+						{
+							"image_file_name": "img27.jpg",
+							"image_path" : "data/img/",
+							"caption" : "27"
+						},					
+						{
+							"image_file_name": "img28.jpg",
+							"image_path" : "data/img/",
+							"caption" : "28"
+						},					
+						{
+							"image_file_name": "img29.jpg",
+							"image_path" : "data/img/",
+							"caption" : "29"
+						}
+						]
+					}]
+                } ,
+                {
+                    "subtitle" : "ETC",
+                    "components" : [
+                    {
+                        "type" : "image",
+                        "image_file_name" : "Stony-Brook-University-logo.jpg",
+                        "image_path" : "data/img/"
+                    }]          
+                }
+
+        ]
+}

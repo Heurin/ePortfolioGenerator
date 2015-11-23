@@ -6,15 +6,16 @@
 -->
 <properties>
     <property_list>    
-        <property name="TITLE_WINDOW"		value="슬라이드 쇼 제작기"></property>  
+        <property name="TITLE_WINDOW"		value="이포트폴리오 제작기"></property>  
         
         <!-- PROGRAM ICON FILES -->
 	
         <!-- TOOLTIPS FOR BUTTONS -->
-        <property name="TOOLTIP_NEW_SLIDE_SHOW"	    value="새로운 슬라이드 생성"></property>
-        <property name="TOOLTIP_LOAD_SLIDE_SHOW"    value="기존 슬라이드 불러오기"></property>
-        <property name="TOOLTIP_SAVE_SLIDE_SHOW"    value="이 슬라이드 쇼를 저장하기"></property>
-        <property name="TOOLTIP_VIEW_SLIDE_SHOW"    value="이 슬라이드 쇼를 보기"></property>
+        <property name="TOOLTIP_NEW_EPORTFOLIO"	    value="새로운 이포트폴리오 생성"></property>
+        <property name="TOOLTIP_LOAD_EPORTFOLIO"    value="기존 이포트폴리오 불러오기"></property>
+        <property name="TOOLTIP_SAVE_EPORTFOLIO"    value="이 이포트폴리오를 저장하기"></property>
+		<property name="TOOLTIP_SAVE_AS_EPORTFOLIO"	value="이 이포트폴리오를 다른 이름으로 저장"></property>
+        <property name="TOOLTIP_VIEW_EPORTFOLIO"    value="이 이포트폴리오를 보기"></property>
         <property name="TOOLTIP_EXIT"		    value="종료"></property>
 	<property name="TOOLTIP_ADD_SLIDE"	    value="슬라이드 추가"></property>
 	<property name="TOOLTIP_REMOVE_SLIDE"	    value="슬라이드 제거"></property>

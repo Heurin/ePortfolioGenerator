@@ -33,6 +33,7 @@ import static epfg.LanguagePropertyType.TOOLTIP_NEW_EPORTFOLIO;
 import static epfg.LanguagePropertyType.TOOLTIP_REMOVE_PAGE;
 import static epfg.LanguagePropertyType.TOOLTIP_SAVE_EPORTFOLIO;
 import static epfg.LanguagePropertyType.TOOLTIP_VIEW_EPORTFOLIO;
+import static epfg.StartupConstants.CSS_CLASS_BUTTONS;
 import static epfg.StartupConstants.CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON;
 import static epfg.StartupConstants.CSS_CLASS_PAGE_EDIT_VIEW;
 import static epfg.StartupConstants.CSS_CLASS_PAGE_EDIT_VBOX;
@@ -57,6 +58,7 @@ import epfg.model.Page;
 import epfg.model.ePortfolioModel;
 import epfg.error.ErrorHandler;
 import epfg.file.ePortfolioFileManager;
+import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
 
 /**
@@ -75,8 +77,9 @@ public class ePortfolioGeneratorView {
     Button newEPortfolioButton;
     Button loadEPortfolioButton;
     Button saveEPortfolioButton;
-    Button saveAsEPortfoliobutton;
+    Button saveAsEPortfolioButton;
     Button exportButton;
+    Button viewEPortfolioButton;
     Button exitButton;
     
     //WORKSPACE
@@ -84,7 +87,7 @@ public class ePortfolioGeneratorView {
     
     //PageListEditor
     VBox PageListVBox;
-    FlowPane PageListEditToolbarPane;
+    VBox PageListEditToolbarVBox;
     ScrollPane PageListPane; 
     Button AddPageButton;
     Button RemovePageButton;
@@ -99,6 +102,14 @@ public class ePortfolioGeneratorView {
     Button ePortfolioTitleSubmitButton;
     Button pageTitleSubmitButton;
     
+    Button AddImageButton;
+    Button AddVideoButton;
+    Button AddTextButton;
+    Button AddSlideShowButton;
+    Button RemoveComponentButton;
+    Button ClearComponentButton;
+    Button RevertButton;
+    
     
     
     
@@ -107,6 +118,8 @@ public class ePortfolioGeneratorView {
     private ErrorHandler errorHandler;
     private ePortfolioEditController editController;
     private FileController fileController;
+    
+    ePortfolioWebView webview;
     
     public ePortfolioGeneratorView(ePortfolioFileManager initfileManager) {
         fileManager = initfileManager;
@@ -124,7 +137,7 @@ public class ePortfolioGeneratorView {
     public void startUI(Stage initPrimaryStage, String appTitle) {
         initFileToolbar();
         initPageListToolbar();
-        initPageEditToolbar();
+        initPageEditPane();
         initWorkspace();
         initEventHandlers();
         primaryStage = initPrimaryStage;
@@ -133,6 +146,8 @@ public class ePortfolioGeneratorView {
     }
     private void initWorkspace() {
         workspace = new HBox();
+        workspace.getChildren().add(PageListEditToolbarVBox);
+        PageListEditToolbarVBox.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VBOX);
         workspace.getChildren().add(PageListVBox);
         workspace.getChildren().add(pageEditorPane);
         
@@ -140,22 +155,56 @@ public class ePortfolioGeneratorView {
     }
     private void initEventHandlers(){
 	// FIRST THE FILE CONTROLS
-	//fileController = new FileController(this, fileManager);
-        
+	fileController = new FileController(this, fileManager);
+        newEPortfolioButton.setOnAction(e -> {
+        });
+        loadEPortfolioButton.setOnAction(e -> {
+        });
+        saveEPortfolioButton.setOnAction(e -> {
+        });
+        saveAsEPortfolioButton.setOnAction(e -> {
+        });
+        exportButton.setOnAction(e -> {
+        });
+        viewEPortfolioButton.setOnAction( e-> {
+           Stage webviewexample = new Stage();
+           webview = new ePortfolioWebView(this, "ePortfolioWebview");
+           webview.start(webviewexample);
+        });
+        exitButton.setOnAction(e -> {
+        });
+        AddImageButton.setOnAction(e -> {
+        });
+        AddVideoButton.setOnAction(e -> {
+        });
+        AddTextButton.setOnAction(e -> {
+        });
+        AddSlideShowButton.setOnAction(e -> {
+        });
+        RemoveComponentButton.setOnAction(e -> {
+        });
+        ClearComponentButton.setOnAction(e -> {
+        });
+        RevertButton.setOnAction(e -> {
+        });
     }
     private void initFileToolbar(){
 	fileToolbarPane = new FlowPane();
+        fileToolbarPane.setHgap(30);
         fileToolbarPane.setId("filetoolbar");
         fileToolbarPane.getStylesheets().add(STYLE_SHEET_UI);
+        fileToolbarPane.setAlignment(Pos.CENTER);
+        
         // HERE ARE OUR FILE TOOLBAR BUTTONS, NOTE THAT SOME WILL
 	// START AS ENABLED (false), WHILE OTHERS DISABLED (true)
 	PropertiesManager props = PropertiesManager.getPropertiesManager();
         newEPortfolioButton = initChildButton(fileToolbarPane, ICON_NEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        loadEPortfolioButton = initChildButton(fileToolbarPane, ICON_NEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        saveEPortfolioButton = initChildButton(fileToolbarPane, ICON_NEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        saveAsEPortfoliobutton = initChildButton(fileToolbarPane, ICON_NEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        loadEPortfolioButton = initChildButton(fileToolbarPane, ICON_LOAD_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        saveEPortfolioButton = initChildButton(fileToolbarPane, ICON_SAVE_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        saveAsEPortfolioButton = initChildButton(fileToolbarPane, ICON_SAVE_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         exportButton = initChildButton(fileToolbarPane, ICON_NEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        exitButton = initChildButton(fileToolbarPane, ICON_NEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        viewEPortfolioButton = initChildButton(fileToolbarPane, ICON_VIEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        exitButton = initChildButton(fileToolbarPane, ICON_EXIT,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
     }
     private void initWindow(String appTitle){
         primaryStage.setTitle(appTitle);
@@ -192,7 +241,7 @@ public class ePortfolioGeneratorView {
 	String imagePath = "file:" + PATH_ICONS + iconFileName;
 	Image buttonImage = new Image(imagePath);
 	Button button = new Button();
-	button.getStyleClass().add(cssClass);
+	button.getStyleClass().add(CSS_CLASS_BUTTONS);
 	button.setDisable(disabled);
 	button.setGraphic(new ImageView(buttonImage));
 	Tooltip buttonTooltip = new Tooltip(props.getProperty(tooltip.toString()));
@@ -203,15 +252,18 @@ public class ePortfolioGeneratorView {
 
     private void initPageListToolbar() {
         PageListVBox = new VBox();
-        PageListEditToolbarPane = new FlowPane();
+        PageListEditToolbarVBox = new VBox(10);
+        PageListEditToolbarVBox.setAlignment(Pos.TOP_CENTER);
+        PageListEditToolbarVBox.setId("PageListToolbarVBox");
         PageListVBox.setId("PageListVBox");
         PageListVBox.getStylesheets().add(STYLE_SHEET_UI);
+        PageListEditToolbarVBox.getStylesheets().add(STYLE_SHEET_UI);
+        
         PageListPane = new ScrollPane();
-        PageListVBox.getChildren().add(PageListEditToolbarPane);
         PageListVBox.getChildren().add(PageListPane);
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        AddPageButton = initChildButton(PageListEditToolbarPane, ICON_NEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        RemovePageButton = initChildButton(PageListEditToolbarPane, ICON_NEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        AddPageButton = initChildButton(PageListEditToolbarVBox, ICON_ADD_PAGE,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        RemovePageButton = initChildButton(PageListEditToolbarVBox, ICON_REMOVE_PAGE,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         //AddPageButton = new Button();
         //RemovePageButton = new Button();
 	/**fileToolbarPane = new FlowPane();
@@ -224,7 +276,7 @@ public class ePortfolioGeneratorView {
         **/ 
     }
     
-    private void initPageEditToolbar() {
+    private void initPageEditPane() {
         pageEditorPane = new VBox();
         HBox epfgTitleHBox = new HBox();
         HBox pageTitleHBox = new HBox();
@@ -236,13 +288,24 @@ public class ePortfolioGeneratorView {
         epfgTitleHBox.getChildren().add(ePortfolioTitleSubmitButton);
         pageTitleHBox.getChildren().add(pageTitleField);
         pageTitleHBox.getChildren().add(pageTitleSubmitButton);
-        
+
+        AddImageButton = new Button();
+        AddVideoButton = new Button();
+        AddTextButton  = new Button();
+        AddSlideShowButton = new Button();
+        RemoveComponentButton = new Button();
+        ClearComponentButton = new Button();
+        RevertButton = new Button(); 
         pageToolbarPane = new FlowPane();
+        pageToolbarPane.getChildren().addAll(AddImageButton,AddVideoButton,AddTextButton,AddSlideShowButton,RemoveComponentButton,ClearComponentButton,RevertButton);
+
         pageComponentsPane = new ScrollPane();
         pageEditorPane.getChildren().add(epfgTitleHBox);
         pageEditorPane.getChildren().add(pageTitleHBox);
         pageEditorPane.getChildren().add(pageToolbarPane);
         pageEditorPane.getChildren().add(pageComponentsPane);
+     
+        
         
     }
     
@@ -266,5 +329,10 @@ public class ePortfolioGeneratorView {
         exitButton.setDisable(false);
 **/        
     }
-    
+    public void reloadPageListVBox() {
+        
+    }
+    public void reloadPageEditorPane() {
+        
+    }
 }

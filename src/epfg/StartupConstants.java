@@ -19,7 +19,7 @@ public class StartupConstants {
     public static String PATH_IMAGES = "./images/";
     public static String PATH_ICONS = PATH_IMAGES + "icons/";
     public static String PATH_PAGE_SHOW_IMAGES = PATH_IMAGES + "slide_show_images/";
-    public static String PATH_CSS = "/ssm/style/";
+    public static String PATH_CSS = "/epfg/style/";
     public static String STYLE_SHEET_UI = PATH_CSS + "ePortfolioGeneratorStyle.css";
 
     // HERE ARE THE LANGUAGE INDEPENDENT GUI ICONS
@@ -45,7 +45,7 @@ public class StartupConstants {
     public static String    CSS_CLASS_PAGE_EDIT_VBOX = "page_edit_vbox";
     public static String    CSS_CLASS_PAGE_EDIT_VIEW = "page_edit_view";
     public static String    CSS_CLASS_PAGE_SELECTION = "page_selection";
-    
+    public static String    CSS_CLASS_BUTTONS        = "buttons";
     // UI LABELS
     public static String    LABEL_EPORTFOLIO_TITLE = "ePortfolio_title";
 }

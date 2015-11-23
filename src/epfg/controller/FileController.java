@@ -50,9 +50,41 @@ import static epfg.StartupConstants.STYLE_SHEET_UI;
  * @author seunchoi
  */
 public class FileController {
-
-    public FileController(ePortfolioGeneratorView aThis, ePortfolioFileManager fileManager) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
+    private boolean saved;
+    private boolean stayOpened;
+    private boolean ePortfolioViewerPossible;
+    
+    private ePortfolioGeneratorView ui;
+    
+    private ePortfolioFileManager ePortfolioIO;
+    
+    public FileController(ePortfolioGeneratorView initUI, ePortfolioFileManager initEPortfolioIO) {
+        saved = true;
+        ui = initUI;
+        ePortfolioIO = initEPortfolioIO;
+    }
+    public void markAsEdited() {
+        saved = false;
+        ui.updateToolbarControls(saved);
+    } 
+    
+    public void handleNewEPortfolioRequest() {
+        
+    }
+    public void handleLoadEPortfolioRequest() {
+        
+    }
+    public void handleSaveEPortfolioRequest() {
+        
+    }
+    public void handleSaveAsEPortfolioRequest() {
+        
+    }
+    public void handleExportEPortfolioRequest() {
+        
+    }
+    public void handleExitRequest() {
+        
+    }    
 }

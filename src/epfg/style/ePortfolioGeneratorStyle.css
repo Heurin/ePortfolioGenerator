@@ -8,3 +8,111 @@ and open the template in the editor.
     Author     : seunchoi
 */
 
+.page_edit_vbox {
+    -fx-background-radius: 5.0;
+    -fx-background-color: #00A812;
+    -fx-border-color: rgb(50, 50, 5);
+}
+
+.page_selection {
+    -fx-background-radius: 10.0;
+    -fx-background-color: rgb(204,51,255);
+    -fx-border-color: #ff0000;
+    -fx-border-thickness: 30px;
+    -fx-spacing: 60px;
+}
+
+#main-application {
+    -fx-background-color : #FBFFAB;
+    -fx-font : 14 "Papyrus";
+}
+
+.page_edit_view {
+    -fx-background-radius: 10.0;
+    -fx-background-color: #00A812;
+    -fx-border-color: #F4FA7F;
+    -fx-border-thickness: 10px;
+    -fx-spacing: 60px;
+    
+}
+#filetoolbar {
+    -fx-background-color : #7D75B2;
+}
+.vertical_toolbar_button {
+    -fx-background-color: #ffff00;
+    -fx-padding: 10px 10px 10px 10px;
+    -fx-spacing: 50px;
+    -fx-alignment : center;
+}
+
+.horizontal_toolbar_button {
+    -fx-background-color: #ffff00;
+    -fx-padding-left: 10px;
+    -fx-padding-right: 20px;
+    -fx-spacing : 50px;
+    -fx-alignment : center;
+}
+
+#language_dialog {
+    -fx-background-color : #ffff00;
+    -fx-font : 16px "Papyrus";
+}
+#language_dialog > *button-bar > *container {
+    -fx-background-color : #ffff00;    
+    -fx-font : 16px "Papyrus";
+}
+
+
+#language_dialog:header *.header-panel{
+    -fx-background-color: #F9FF80;
+    -fx-font : 16px "Papyrus";
+}
+#language_dialog:header *.header-panel *.label{
+    -fx-font : 50px "Papyrus";
+    -fx-fill: #292929;
+}
+
+#newslideprompt {
+    -fx-background-color : #ffff00;
+    -fx-font : 16px "Papyrus";
+}
+#newslideprompt > *button-bar > *container {
+    -fx-background-color : #ffff00;    
+    -fx-font : 16px "Papyrus";
+}
+#newslidecreated {
+    -fx-background-color : #ffff00;
+    -fx-font : 16px "Papyrus";
+}
+#newslidecreated > *button-bar > *container {
+    -fx-background-color : #ffff00;    
+    -fx-font : 16px "Papyrus";
+}
+
+
+#newslidecreated:header *.header-panel{
+    -fx-background-color: #F9FF80;
+    -fx-font : 16px "Papyrus";
+}
+#newslidecreated:header *.header-panel *.label{
+    -fx-font : 50px "Papyrus";
+    -fx-fill: #292929;
+}
+
+#newslideprompt:header *.header-panel{
+    -fx-background-color: #F9FF80;
+    -fx-font : 16px "Papyrus";
+}
+#newslideprompt:header *.header-panel *.label{
+    -fx-font : 50px "Papyrus";
+    -fx-fill: #292929;
+}
+
+
+#filetoolbar {
+    -fs-background-color : #ffff00;
+}
+
+.buttons {
+    -fx-focus-color: #9DD2E7;
+}

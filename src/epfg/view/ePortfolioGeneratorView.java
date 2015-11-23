@@ -137,7 +137,7 @@ public class ePortfolioGeneratorView {
     Button SelectFontButton;
     Button EnterStudentInfoButton;
     Button AddFooterButton;
-    
+    Button SelectBannerImageButton;
     ePortfolioModel ePortfolio;
     ePortfolioFileManager fileManager;
     private ErrorHandler errorHandler;
@@ -208,22 +208,26 @@ public class ePortfolioGeneratorView {
         
         pageEditController = new PageEditController(this);
         AddImageButton.setOnAction(e -> {
-            pageEditController.processAddImageRequest();
+            //pageEditController.processAddImageRequest();
+            AddImage();
         });
         AddVideoButton.setOnAction(e -> {
-            pageEditController.processAddVideoRequest();
+            //pageEditController.processAddVideoRequest();
+            AddVideo();
         });
         AddTextButton.setOnAction(e -> {
-            pageEditController.processAddTextRequest();
+            //pageEditController.processAddTextRequest();
+            AddText();
         });
         AddSlideShowButton.setOnAction(e -> {
-            pageEditController.processAddSlideShowRequest();
+            //pageEditController.processAddSlideShowRequest();
+            AddSlideShow();
         });
         RemoveComponentButton.setOnAction(e -> {
-            pageEditController.processRemoveComponentRequest();
+            //pageEditController.processRemoveComponentRequest();
         });
         ClearComponentButton.setOnAction(e -> {
-            pageEditController.processClearComponentsRequest();
+            //pageEditController.processClearComponentsRequest();
         });
         RevertButton.setOnAction(e -> {
             pageEditController.processRevertChangeRequest();
@@ -239,6 +243,9 @@ public class ePortfolioGeneratorView {
         });
         AddFooterButton.setOnAction(e -> {
             AddFooter();
+        });
+        SelectBannerImageButton.setOnAction (e-> {
+            SelectBannerImage();
         });
         
     }
@@ -382,7 +389,7 @@ public class ePortfolioGeneratorView {
         EnterStudentInfoButton = initChildButton(pageToolbarHBox,ICON_LAYOUT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
 //pageToolbarPane.getChildren().addAll(AddImageButton,AddVideoButton,AddTextButton,AddSlideShowButton,RemoveComponentButton,ClearComponentButton,RevertButton);
         AddFooterButton = initChildButton(pageToolbarHBox,ICON_LAYOUT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        
+        SelectBannerImageButton = initChildButton(pageToolbarHBox,ICON_LAYOUT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         pageComponentsPane = new ScrollPane();
         pageComponentVBox = new VBox();
         pageComponentsPane.setContent(pageComponentVBox);
@@ -523,5 +530,20 @@ public class ePortfolioGeneratorView {
         if (result.isPresent()) {
 
         }
+    }
+    private void SelectBannerImage() {
+        
+    }
+
+    private void AddSlideShow() {
+    }
+
+    private void AddText() {
+    }
+
+    private void AddVideo() {
+    }
+
+    private void AddImage() {
     }
 }

@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package epfg.Contents;
+package epfg.controller;
 
 /**
  *
- * @author shcho
+ * @author seunchoi
  */
-public class SlideShowComponent{
+class ePortfoolioGenerator {
     
 }

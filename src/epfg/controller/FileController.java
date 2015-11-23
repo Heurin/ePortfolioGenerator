@@ -70,7 +70,26 @@ public class FileController {
     } 
     
     public void handleNewEPortfolioRequest() {
+        ePortfolioModel ePortfolio = ui.getEPortfolio();
+
         
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        TextInputDialog dialog = new TextInputDialog("New ePortfolio");
+        dialog.setTitle("ePortfolio Title Dialog");
+        dialog.setHeaderText("Enter new ePortfolio Title");
+        dialog.setContentText("New ePortfolio Title : ");
+        
+        // Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            ePortfolio.setTitle(result.get());
+        }
+        else {
+            
+        }
+        ui.initPageListToolbar();
+        ui.initPageListEventHandler();        
+
     }
     public void handleLoadEPortfolioRequest() {
         
@@ -85,6 +104,68 @@ public class FileController {
         
     }
     public void handleExitRequest() {
+        try {
+            // WE MAY HAVE TO SAVE CURRENT WORK
+            boolean continueToExit = true;
+            if (!saved) {
+                // THE USER CAN OPT OUT HERE
+                promptToSave();
+                continueToExit = !stayOpened;
+            }
+
+            // IF THE USER REALLY WANTS TO EXIT THE APP
+            if (continueToExit) {
+                // EXIT THE APPLICATION
+                System.exit(0);
+            }
+        } catch (IOException ioe) {
+            ErrorHandler eH = ui.getErrorHandler();
+            // @todo
+            eH.processError(LanguagePropertyType.ERROR_OCCURED, "2", "Error");
+        }
         
+    }
+
+    private boolean promptToSave() throws IOException {
+        // PROMPT THE USER TO SAVE UNSAVED WORK
+/**        PropertiesManager props = PropertiesManager.getPropertiesManager();
+ 
+        Alert prompt = new Alert(AlertType.CONFIRMATION);
+        prompt.setTitle(props.getProperty(SAVE_PROMPT));
+        prompt.setHeaderText(props.getProperty(SAVE_PROMPT));
+        prompt.setContentText(null);
+        ButtonType YesButton = new ButtonType(props.getProperty(YES_SELECTION));
+        ButtonType NoButton = new ButtonType(props.getProperty(NO_SELECTION));
+        ButtonType CancelButton = new ButtonType(props.getProperty(CANCEL_SELECTION),ButtonData.CANCEL_CLOSE);
+        prompt.getButtonTypes().clear();
+        prompt.getButtonTypes().addAll(YesButton,NoButton,CancelButton);
+        Optional<ButtonType> result = prompt.showAndWait();
+        boolean saveWork;
+        if (result.get() == YesButton){
+            saveWork = true;
+            stayOpened = false;
+        } else if (result.get() == NoButton) {
+            saveWork = false;
+            stayOpened = false;
+        } else {
+            saveWork = false;
+            stayOpened = true;
+        }
+        
+        // IF THE USER SAID YES, THEN SAVE BEFORE MOVING ON
+        if (saveWork) {
+            SlideShowModel slideShow = ui.getSlideShow();
+            slideShowIO.saveSlideShow(slideShow);
+            saved = true;
+        } // IF THE USER SAID CANCEL, THEN WE'LL TELL WHOEVER
+        // CALLED THIS THAT THE USER IS NOT INTERESTED ANYMORE
+        else if (!true) {
+            return false;
+        }
+
+        // IF THE USER SAID NO, WE JUST GO ON WITHOUT SAVING
+        // BUT FOR BOTH YES AND NO WE DO WHATEVER THE USER
+        // HAD IN MIND IN THE FIRST PLACE **/
+        return true; 
     }    
 }

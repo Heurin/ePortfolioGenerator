@@ -9,6 +9,6 @@ package epfg.Contents;
  *
  * @author shcho
  */
-public class ImageComponent extends PortfolioComponent{
+public class ImageComponent{
     
 }

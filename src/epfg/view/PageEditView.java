@@ -5,7 +5,6 @@
  */
 package epfg.view;
 
-import epfg.Contents.PortfolioComponent;
 import epfg.model.Page;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -19,10 +18,12 @@ import javafx.scene.text.Text;
  * @author shcho
  */
 public class PageEditView extends HBox{
-    PortfolioComponent component;
+    String component;
     String title;
     Label label;
     public PageEditView(String inputTitle) {
+        this.getStyleClass().clear();
+        this.getStyleClass().add("page_edit_view");
         title = inputTitle;
         label = new Label(title);
         getChildren().add(label);

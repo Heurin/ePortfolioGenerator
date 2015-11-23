@@ -18,7 +18,7 @@ public class StartupConstants {
     public static String PATH_EPORTFOLIO = PATH_DATA + "eportfolio/";
     public static String PATH_IMAGES = "./images/";
     public static String PATH_ICONS = PATH_IMAGES + "icons/";
-    public static String PATH_EPORTFOLIO_IMAGES = PATH_IMAGES + "slide_show_images/";
+    public static String PATH_EPORTFOLIO_IMAGES = PATH_IMAGES;
     public static String PATH_VIDEOS = "./data/videos/";
     public static String PATH_CSS = "/epfg/style/";
     public static String STYLE_SHEET_UI = PATH_CSS + "ePortfolioGeneratorStyle.css";

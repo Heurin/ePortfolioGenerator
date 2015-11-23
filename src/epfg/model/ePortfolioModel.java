@@ -33,6 +33,9 @@ public class ePortfolioModel {
     public boolean isPageSelected() {
 	return selectedPage != null;
     }
+    public void addPage(String initTitle){
+        title = initTitle;        
+    }
     
     public ObservableList<Page> getPages() {
 	return pages;

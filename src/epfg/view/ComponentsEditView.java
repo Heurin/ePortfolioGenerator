@@ -5,7 +5,6 @@
  */
 package epfg.view;
 
-import epfg.Contents.PortfolioComponent;
 import javafx.scene.layout.HBox;
 
 /**
@@ -13,7 +12,7 @@ import javafx.scene.layout.HBox;
  * @author choiseu
  */
 public class ComponentsEditView extends HBox{
-    PortfolioComponent component;
+    String component;
     public ComponentsEditView() { }
     
 }

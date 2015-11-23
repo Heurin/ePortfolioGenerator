@@ -50,5 +50,9 @@ import static epfg.StartupConstants.STYLE_SHEET_UI;
  * @author seunchoi
  */
 public class FileController {
+
+    public FileController(ePortfolioGeneratorView aThis, ePortfolioFileManager fileManager) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

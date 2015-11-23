@@ -23,7 +23,7 @@ public class StartupConstants {
     public static String STYLE_SHEET_UI = PATH_CSS + "ePortfolioGeneratorStyle.css";
 
     // HERE ARE THE LANGUAGE INDEPENDENT GUI ICONS
-    public static String ICON_NEW_PAGE = "New.png";
+    public static String ICON_NEW_EPORTFOLIO = "New.png";
     public static String ICON_LOAD_EPORTFOLIO = "Load.png";
     public static String ICON_SAVE_EPORTFOLIO = "Save.png";
     public static String ICON_VIEW_EPORTFOLIO = "View.png";

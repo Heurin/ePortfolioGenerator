@@ -115,7 +115,10 @@ and open the template in the editor.
 
 .buttons {
     -fx-focus-color: #9DD2E7;
-    height : 50px;
+    -fx-padding-left: 10px;
+    -fx-padding-right: 20px;
+    -fx-spacing : 50px;
+    -fx-alignment : center;
     
 }
 

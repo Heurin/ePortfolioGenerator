@@ -5,6 +5,7 @@
  */
 package epfg.view;
 
+import epfg.Contents.PortfolioComponent;
 import epfg.model.Page;
 import javafx.scene.layout.HBox;
 
@@ -13,7 +14,10 @@ import javafx.scene.layout.HBox;
  * @author shcho
  */
 public class PageEditView extends HBox{
-    Page page;
+    PortfolioComponent component;
+    public PageEditView() {
+        
+    }
     
     
 }

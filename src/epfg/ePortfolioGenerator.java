@@ -37,7 +37,7 @@ public class ePortfolioGenerator extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         // LOAD APP SETTINGS INTO THE GUI AND START IT UP
-
+/**
         List<String> choices = new ArrayList<>();
         choices.add("English(Default)");
         choices.add("Korean(한글)");
@@ -63,6 +63,8 @@ public class ePortfolioGenerator extends Application {
         }
         else
             System.exit(0);
+            * */
+        UI_PROPERTIES_FILE_NAME = "properties_EN.xml";
         boolean success = loadProperties();
         if (success) {
             PropertiesManager props = PropertiesManager.getPropertiesManager();

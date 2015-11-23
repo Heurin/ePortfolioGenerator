@@ -64,6 +64,7 @@ import static epfg.StartupConstants.ICON_VIDEO;
 import static epfg.StartupConstants.PATH_ICONS;
 import static epfg.StartupConstants.STYLE_SHEET_UI;
 import epfg.controller.FileController;
+import epfg.controller.PageEditController;
 import epfg.controller.ePortfolioEditController;
 import epfg.model.Page;
 import epfg.model.ePortfolioModel;
@@ -113,7 +114,8 @@ public class ePortfolioGeneratorView {
     VBox pageEditorPane;
     FlowPane pageToolbarPane;
     ScrollPane pageComponentsPane;
-
+    VBox pageComponentVBox;
+    
     TextField ePortfolioTitleField;
     TextField pageTitleField;
     Button ePortfolioTitleSubmitButton;
@@ -128,14 +130,15 @@ public class ePortfolioGeneratorView {
     Button RevertButton;
     Button SelectLayoutButton;
     
-    
+    Button TogglePreviewButton;
     
     
     ePortfolioModel ePortfolio;
     ePortfolioFileManager fileManager;
     private ErrorHandler errorHandler;
-    private ePortfolioEditController editController;
+    private ePortfolioEditController portfolioEditController;
     private FileController fileController;
+    private PageEditController pageEditController;
     
     ePortfolioWebView webview;
     
@@ -168,6 +171,7 @@ public class ePortfolioGeneratorView {
         PageListEditToolbarVBox.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VBOX);
         workspace.getChildren().add(PageListPane);
         workspace.getChildren().add(pageEditorPane);
+        workspace.getChildren().add(TogglePreviewButton);
         
         
     }
@@ -175,14 +179,19 @@ public class ePortfolioGeneratorView {
 	// FIRST THE FILE CONTROLS
 	fileController = new FileController(this, fileManager);
         newEPortfolioButton.setOnAction(e -> {
+            fileController.handleNewEPortfolioRequest();
         });
         loadEPortfolioButton.setOnAction(e -> {
+            fileController.handleLoadEPortfolioRequest();
         });
         saveEPortfolioButton.setOnAction(e -> {
+            fileController.handleSaveEPortfolioRequest();
         });
         saveAsEPortfolioButton.setOnAction(e -> {
+            fileController.handleSaveAsEPortfolioRequest();
         });
         exportButton.setOnAction(e -> {
+            fileController.handleExportEPortfolioRequest();
         });
         viewEPortfolioButton.setOnAction( e-> {
            Stage webviewexample = new Stage();
@@ -190,20 +199,30 @@ public class ePortfolioGeneratorView {
            webview.start(webviewexample);
         });
         exitButton.setOnAction(e -> {
+            fileController.handleExitRequest();
         });
+        
+        pageEditController = new PageEditController(this);
         AddImageButton.setOnAction(e -> {
+            pageEditController.processAddImageRequest();
         });
         AddVideoButton.setOnAction(e -> {
+            pageEditController.processAddVideoRequest();
         });
         AddTextButton.setOnAction(e -> {
+            pageEditController.processAddTextRequest();
         });
         AddSlideShowButton.setOnAction(e -> {
+            pageEditController.processAddSlideShowRequest();
         });
         RemoveComponentButton.setOnAction(e -> {
+            pageEditController.processRemoveComponentRequest();
         });
         ClearComponentButton.setOnAction(e -> {
+            pageEditController.processClearComponentsRequest();
         });
         RevertButton.setOnAction(e -> {
+            pageEditController.processRevertChangeRequest();
         });
     }
     private void initFileToolbar(){
@@ -345,12 +364,25 @@ public class ePortfolioGeneratorView {
         //pageToolbarPane.getChildren().addAll(AddImageButton,AddVideoButton,AddTextButton,AddSlideShowButton,RemoveComponentButton,ClearComponentButton,RevertButton);
 
         pageComponentsPane = new ScrollPane();
+        pageComponentVBox = new VBox();
+        pageComponentsPane.setContent(pageComponentVBox);
+            
+            Text ntitle = new Text("test");
+            Rectangle frame = new Rectangle();
+            frame.setWidth(500);
+            frame.setHeight(60);
+            frame.setFill(Color.RED);
+            StackPane stack = new StackPane();
+            stack.getChildren().addAll(frame,ntitle);
+            pageComponentVBox.getChildren().add(stack);
         //pageEditorPane.getChildren().add(epfgTitleHBox);
         //pageEditorPane.getChildren().add(pageTitleHBox);
         pageEditorPane.getChildren().add(titleHBox);
         pageEditorPane.getChildren().add(pageToolbarPane);
         pageEditorPane.getChildren().add(pageComponentsPane);
      
+        
+        TogglePreviewButton = new Button("Toggle Preview");
         
         
     }

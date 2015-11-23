@@ -71,9 +71,14 @@ import epfg.model.ePortfolioModel;
 import epfg.error.ErrorHandler;
 import epfg.file.ePortfolioFileManager;
 import static java.awt.Color.white;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import javafx.geometry.Pos;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -129,9 +134,9 @@ public class ePortfolioGeneratorView {
     Button ClearComponentButton;
     Button RevertButton;
     Button SelectLayoutButton;
-    
-    Button TogglePreviewButton;
-    
+    Button SelectFontButton;
+    Button EnterStudentInfoButton;
+    Button AddFooterButton;
     
     ePortfolioModel ePortfolio;
     ePortfolioFileManager fileManager;
@@ -171,7 +176,6 @@ public class ePortfolioGeneratorView {
         PageListEditToolbarVBox.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VBOX);
         workspace.getChildren().add(PageListPane);
         workspace.getChildren().add(pageEditorPane);
-        workspace.getChildren().add(TogglePreviewButton);
         
         
     }
@@ -224,6 +228,19 @@ public class ePortfolioGeneratorView {
         RevertButton.setOnAction(e -> {
             pageEditController.processRevertChangeRequest();
         });
+        SelectLayoutButton.setOnAction (e -> {
+           layoutSelector(); 
+        });
+        SelectFontButton.setOnAction (e -> {
+           FontSelector(); 
+        });
+        EnterStudentInfoButton.setOnAction(e -> {
+            EnterStudent();
+        });
+        AddFooterButton.setOnAction(e -> {
+            AddFooter();
+        });
+        
     }
     private void initFileToolbar(){
 	fileToolbarPane = new FlowPane();
@@ -361,8 +378,11 @@ public class ePortfolioGeneratorView {
         ClearComponentButton = initChildButton(pageToolbarHBox,ICON_CLEAR, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         RevertButton = initChildButton(pageToolbarHBox,ICON_REVERT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         SelectLayoutButton = initChildButton(pageToolbarHBox,ICON_LAYOUT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        //pageToolbarPane.getChildren().addAll(AddImageButton,AddVideoButton,AddTextButton,AddSlideShowButton,RemoveComponentButton,ClearComponentButton,RevertButton);
-
+        SelectFontButton = initChildButton(pageToolbarHBox,ICON_LAYOUT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        EnterStudentInfoButton = initChildButton(pageToolbarHBox,ICON_LAYOUT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+//pageToolbarPane.getChildren().addAll(AddImageButton,AddVideoButton,AddTextButton,AddSlideShowButton,RemoveComponentButton,ClearComponentButton,RevertButton);
+        AddFooterButton = initChildButton(pageToolbarHBox,ICON_LAYOUT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        
         pageComponentsPane = new ScrollPane();
         pageComponentVBox = new VBox();
         pageComponentsPane.setContent(pageComponentVBox);
@@ -382,7 +402,6 @@ public class ePortfolioGeneratorView {
         pageEditorPane.getChildren().add(pageComponentsPane);
      
         
-        TogglePreviewButton = new Button("Toggle Preview");
         
         
     }
@@ -433,5 +452,76 @@ public class ePortfolioGeneratorView {
         for (PortfolioComponent component : list) {
             
        }
+        
+        
+    }    
+    //temporal for implementation HW6
+    private void layoutSelector() {
+        List<String> choices = new ArrayList<>();
+        choices.add("Layout A");
+        choices.add("Layout B");
+        choices.add("Layout C");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Layout A", choices);
+        dialog.setTitle("Choose Layout");
+        dialog.setHeaderText("Choose Layout");
+        dialog.setContentText("Select :");
+
+        // Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+           
+        }
+        else {
+            
+        }
+           
+    }
+
+    private void FontSelector() {
+        List<String> choices = new ArrayList<>();
+        choices.add("Font A");
+        choices.add("Font B");
+        choices.add("Font C");
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Font A", choices);
+        dialog.setTitle("Choose Font");
+        dialog.setHeaderText("Choose Font");
+        dialog.setContentText("Select :");
+
+        // Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+           
+        }
+        else {
+            
+        }
+           
+    }
+    private void EnterStudent() {
+        TextInputDialog dialog = new TextInputDialog("Anonymous");
+        dialog.setTitle("Enter Student Info");
+        dialog.setHeaderText("Put your NAme");
+        dialog.setContentText("Please enter your name:");
+
+        // Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Your name: " + result.get());
 }
+
+    }
+    
+    private void AddFooter() {
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Add Footer Text");
+        dialog.setHeaderText("Enter Footer Text");
+
+        Optional<String> result = dialog.showAndWait();
+
+        if (result.isPresent()) {
+
+        }
+    }
 }

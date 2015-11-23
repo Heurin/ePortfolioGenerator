@@ -115,4 +115,10 @@ and open the template in the editor.
 
 .buttons {
     -fx-focus-color: #9DD2E7;
+    height : 50px;
+    
+}
+
+#titlelabel {
+
 }

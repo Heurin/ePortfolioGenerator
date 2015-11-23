@@ -9,12 +9,12 @@ package epfg.Contents;
  *
  * @author shcho
  */
-public class Component {
+public class PortfolioComponent {
     String type;
-    public Component() {
+    public PortfolioComponent() {
         
     }
-    public Component(String newtype){
+    public PortfolioComponent(String newtype){
         type = newtype;
     }
 }

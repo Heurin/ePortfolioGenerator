@@ -5,7 +5,7 @@
  */
 package epfg.model;
 
-import epfg.Contents.Component;
+import epfg.Contents.PortfolioComponent;
 import javafx.collections.ObservableList;
 
 /**
@@ -15,8 +15,14 @@ import javafx.collections.ObservableList;
 public class Page {
     String pageTitle;
     String componentType;
-    ObservableList<Component> components;
+    ObservableList<PortfolioComponent> components;
     //public Page(String newPageTitle)
     
+    public String getTitle() {
+        return pageTitle;
+    }
+    public ObservableList<PortfolioComponent> getComponents() {
+        return components;
+    }
     //public Slide(String initPageTitle, String[] init)
 }

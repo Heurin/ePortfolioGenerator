@@ -9,6 +9,6 @@ package epfg.Contents;
  *
  * @author shcho
  */
-public class TextComponent extends Component{
+public class TextComponent extends PortfolioComponent{
     
 }

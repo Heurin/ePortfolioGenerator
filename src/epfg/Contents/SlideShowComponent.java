@@ -9,6 +9,6 @@ package epfg.Contents;
  *
  * @author shcho
  */
-public class SlideShowComponent extends Component{
+public class SlideShowComponent extends PortfolioComponent{
     
 }

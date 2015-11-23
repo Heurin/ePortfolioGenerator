@@ -9,6 +9,6 @@ package epfg.Contents;
  *
  * @author shcho
  */
-public class VideoComponent extends Component{
+public class VideoComponent extends PortfolioComponent{
     
 }

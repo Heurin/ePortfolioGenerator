@@ -26,6 +26,7 @@ public class StartupConstants {
     public static String ICON_NEW_EPORTFOLIO = "New.png";
     public static String ICON_LOAD_EPORTFOLIO = "Load.png";
     public static String ICON_SAVE_EPORTFOLIO = "Save.png";
+    public static String ICON_SAVE_AS_EPORTFOLIO = "SaveAs.png";
     public static String ICON_VIEW_EPORTFOLIO = "View.png";
     public static String ICON_EXIT = "Exit.png";
     public static String ICON_ADD_PAGE = "Add.png";
@@ -36,8 +37,15 @@ public class StartupConstants {
     public static String ICON_NEXT = "Next.png";
     public static String ICON_APPLICATION = "application.png";
     public static String ICON_TITLECHANGER ="titlechange.png";
-    public static String ICON_PAGESHOW="SlideShow.png";
-    
+    public static String ICON_SLIDESHOW="SlideShow.png";
+    public static String ICON_EXPORT = "export.png";
+    public static String ICON_IMAGE = "image.png";
+    public static String ICON_VIDEO = "video.png";
+    public static String ICON_TEXT = "text.png";
+    public static String ICON_REMOVE = "delete.png";
+    public static String ICON_CLEAR = "clear.png";
+    public static String ICON_REVERT = "revert.png";
+    public static String ICON_LAYOUT = "layout.png";
     
     // CSS STYLE SHEET CLASSES
     public static String    CSS_CLASS_VERTICAL_TOOLBAR_BUTTON = "vertical_toolbar_button";

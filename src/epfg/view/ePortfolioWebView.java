@@ -53,7 +53,7 @@ public class ePortfolioWebView extends Application{
             WebView web = new WebView();     
            // String path =  "././sites/";
            // path += ePortfolioName + "/index.html";  
-            File loc = new File("././src/public_html/index.html");
+            File loc = new File("././src/webdata/index.html");
             web.getEngine().load(loc.toURI().toURL().toString());
             web.getEngine().setJavaScriptEnabled(true);
             scene = new Scene(web);   

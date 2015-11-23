@@ -125,3 +125,14 @@ and open the template in the editor.
 #titlelabel {
 
 }
+.transparent {
+    -fx-background-color:transparent;
+}
+
+.page_selection {
+    -fx-background-radius: 10.0;
+    -fx-background-color: rgb(204,51,255);
+    -fx-border-color: #ff0000;
+    -fx-border-thickness: 30px;
+    -fx-spacing: 60px;
+}

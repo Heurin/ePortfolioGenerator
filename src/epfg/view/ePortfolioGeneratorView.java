@@ -76,6 +76,7 @@ import java.util.List;
 import java.util.Optional;
 import javafx.geometry.Pos;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
@@ -321,6 +322,7 @@ public class ePortfolioGeneratorView {
         PageListEditToolbarVBox.getStylesheets().add(STYLE_SHEET_UI);
         
         PageListPane = new ScrollPane();
+        PageListPane.getStyleClass().add("transparent");
         PageListPane.setContent(PageListVBox);
         
         PropertiesManager props = PropertiesManager.getPropertiesManager();
@@ -336,14 +338,8 @@ public class ePortfolioGeneratorView {
 	
         newEPortfolioButton = initChildButton(fileToolbarPane, ICON_NEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         **/ 
-            Text ntitle = new Text("test");
-            Rectangle frame = new Rectangle();
-            frame.setWidth(200);
-            frame.setHeight(60);
-            frame.setFill(Color.RED);
-            StackPane stack = new StackPane();
-            stack.getChildren().addAll(frame,ntitle);
-            PageListVBox.getChildren().add(stack);        
+            PageEditView view = new PageEditView("afs;laksjdf;alksdjf;das");
+            PageListVBox.getChildren().add(view);        
     }
     
     private void initPageEditPane() {
@@ -532,7 +528,14 @@ public class ePortfolioGeneratorView {
         }
     }
     private void SelectBannerImage() {
+        Dialog dialog = new Dialog();
+        dialog.setTitle("Choose Banner Image");
+        dialog.setHeaderText("Choose Banner Image");
         
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()) {
+
+        }        
     }
 
     private void AddSlideShow() {

@@ -5,10 +5,19 @@
  */
 package epfg.Contents;
 
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 /**
  *
  * @author shcho
  */
 public class SlideShowComponent{
+    Stage primaryStage;
+    Scene primaryScene;
+    
+    
+    public SlideShowComponent() { }
+    
     
 }

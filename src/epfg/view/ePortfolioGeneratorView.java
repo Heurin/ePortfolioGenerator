@@ -43,12 +43,16 @@ import static epfg.StartupConstants.ICON_APPLICATION;
 import static epfg.StartupConstants.ICON_ADD_PAGE;
 import static epfg.StartupConstants.ICON_BANNER;
 import static epfg.StartupConstants.ICON_CLEAR;
+import static epfg.StartupConstants.ICON_COLOR;
+import static epfg.StartupConstants.ICON_DOT;
 import static epfg.StartupConstants.ICON_EXIT;
 import static epfg.StartupConstants.ICON_EXPORT;
 import static epfg.StartupConstants.ICON_FONT;
 import static epfg.StartupConstants.ICON_FOOTER;
+import static epfg.StartupConstants.ICON_HYPERLINK;
 import static epfg.StartupConstants.ICON_IMAGE;
 import static epfg.StartupConstants.ICON_LAYOUT;
+import static epfg.StartupConstants.ICON_LIST;
 import static epfg.StartupConstants.ICON_LOAD_EPORTFOLIO;
 import static epfg.StartupConstants.ICON_MOVE_UP;
 import static epfg.StartupConstants.ICON_MOVE_DOWN;
@@ -63,6 +67,7 @@ import static epfg.StartupConstants.ICON_SLIDESHOW;
 import static epfg.StartupConstants.ICON_STUDENT;
 import static epfg.StartupConstants.ICON_TEXT;
 import static epfg.StartupConstants.ICON_TITLECHANGER;
+import static epfg.StartupConstants.ICON_TRANSITION;
 import static epfg.StartupConstants.ICON_VIDEO;
 import static epfg.StartupConstants.PATH_ICONS;
 import static epfg.StartupConstants.PATH_IMAGES;
@@ -83,12 +88,14 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
@@ -111,6 +118,7 @@ public class ePortfolioGeneratorView {
     Button saveAsEPortfolioButton;
     Button exportButton;
     Button viewEPortfolioButton;
+    
     Button exitButton;
     
     //WORKSPACE
@@ -133,7 +141,7 @@ public class ePortfolioGeneratorView {
     TextField pageTitleField;
     Button ePortfolioTitleSubmitButton;
     Button pageTitleSubmitButton;
-    
+    Button webTransitionButton;
     Button AddImageButton;
     Button AddVideoButton;
     Button AddTextButton;
@@ -146,8 +154,12 @@ public class ePortfolioGeneratorView {
     Button EnterStudentInfoButton;
     Button AddFooterButton;
     Button SelectBannerImageButton;
+    Button ColorChooserButton;
+    Button AddListButton;
+    Button AddHyperLinkButton;
     ePortfolioModel ePortfolio;
     ePortfolioFileManager fileManager;
+    int transitionstate;
     private ErrorHandler errorHandler;
     private ePortfolioEditController portfolioEditController;
     private FileController fileController;
@@ -182,6 +194,12 @@ public class ePortfolioGeneratorView {
         workspace = new HBox();
 
    
+    }
+    
+    private void initTotalEventHandlers() {
+        initFileToolbarEventHandlers();
+        initPageListEventHandler();
+        initPageComponentEventHandler();
     }
     
     
@@ -266,6 +284,18 @@ public class ePortfolioGeneratorView {
         });
         SelectBannerImageButton.setOnAction (e-> {
             SelectBannerImage();
+        });
+        ColorChooserButton.setOnAction (e-> {
+            ColorSelector();
+        });
+        webTransitionButton.setOnAction (e -> {
+            webtransition();
+        });
+        AddListButton.setOnAction (e -> {
+            AddList();
+        });
+        AddHyperLinkButton.setOnAction(e -> {
+            InputHyperLink();
         });
         
     }
@@ -400,6 +430,8 @@ public class ePortfolioGeneratorView {
                 //new Button(ICON_IMAGE);
         AddVideoButton = initChildButton(pageToolbarHBox,ICON_VIDEO, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddTextButton  = initChildButton(pageToolbarHBox,ICON_TEXT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        AddListButton = initChildButton(pageToolbarHBox,ICON_LIST, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        AddHyperLinkButton = initChildButton(pageToolbarHBox,ICON_HYPERLINK, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddSlideShowButton = initChildButton(pageToolbarHBox,ICON_SLIDESHOW, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         RemoveComponentButton = initChildButton(pageToolbarHBox,ICON_REMOVE, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         ClearComponentButton = initChildButton(pageToolbarHBox,ICON_CLEAR, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
@@ -410,6 +442,11 @@ public class ePortfolioGeneratorView {
 //pageToolbarPane.getChildren().addAll(AddImageButton,AddVideoButton,AddTextButton,AddSlideShowButton,RemoveComponentButton,ClearComponentButton,RevertButton);
         AddFooterButton = initChildButton(pageToolbarHBox,ICON_FOOTER, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         SelectBannerImageButton = initChildButton(pageToolbarHBox,ICON_BANNER, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        ColorChooserButton = initChildButton(pageToolbarHBox,ICON_COLOR, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        webTransitionButton = initChildButton(pageToolbarHBox,ICON_TRANSITION, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        
+        transitionstate =0;
+        
         pageComponentsPane = new ScrollPane();
         pageComponentVBox = new VBox();
         pageComponentsPane.setContent(pageComponentVBox);
@@ -532,10 +569,22 @@ public class ePortfolioGeneratorView {
         }
            
     }
+    private void ColorSelector() {
+        TextInputDialog dialog = new TextInputDialog("blue");
+        dialog.setTitle("Enter Color Code (RGB, HEX, default Color name");
+        dialog.setHeaderText("Put Color Code");
+        dialog.setContentText("Please enter Color Code:");
+
+        // Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            
+    }
+    }    
     private void EnterStudent() {
         TextInputDialog dialog = new TextInputDialog("Anonymous");
         dialog.setTitle("Enter Student Info");
-        dialog.setHeaderText("Put your NAme");
+        dialog.setHeaderText("Put your Name");
         dialog.setContentText("Please enter your name:");
 
         // Traditional way to get the response value.
@@ -604,9 +653,10 @@ public class ePortfolioGeneratorView {
         
         Label label = new Label("Enter Paragraph");
         
-        TextField input = new TextField();
-        input.prefHeight(500);
-        input.prefWidth(100);
+        TextArea input = new TextArea();
+        input.setPrefSize(500,500);
+        input.setWrapText(true);
+
         
         HBox confirmation = new HBox(5);
         Button OK = new Button("OK");
@@ -618,7 +668,49 @@ public class ePortfolioGeneratorView {
         TextStage.setScene(TextScene);
         TextStage.show();
     }
+    private void InputHyperLink(){
+        Stage TextStage = new Stage();
+        HBox confirmation = new HBox(5);
+        Button OK = new Button("OK");
+        Button Cancel = new Button("Cancel");
+        confirmation.getChildren().addAll(OK,Cancel);        
+        VBox vbox = new VBox(5);
+        Label label = new Label("Enter HyperLink");
+        TextField input = new TextField();
+        
+        vbox.getChildren().addAll(label,input,confirmation);
+        Scene scene = new Scene(vbox,300,200);
+        TextStage.setScene(scene);
+        TextStage.show();
+    }
+    private void AddList() {
+        Stage TextStage = new Stage();
+        
+        VBox vbox = new VBox(5);
+        
+        Label label = new Label("Make a List");
 
+        
+        
+        TextField input1 = new TextField();
+        
+        TextField input2 = new TextField();
+        
+        TextField input3 = new TextField();
+        
+        TextField input4 = new TextField();
+        
+        TextField input5 = new TextField();
+        HBox confirmation = new HBox(5);
+        Button OK = new Button("OK");
+        Button Cancel = new Button("Cancel");
+        confirmation.getChildren().addAll(OK,Cancel);
+        
+        vbox.getChildren().addAll(label,input1,input2,input3,input4,input5,confirmation);
+        Scene TextScene = new Scene(vbox,800,800);
+        TextStage.setScene(TextScene);
+        TextStage.show();
+    }
     private void AddVideo() {
         Stage videochooser = new Stage();
         videochooser.setTitle("Choose Video");
@@ -713,5 +805,37 @@ public class ePortfolioGeneratorView {
         Scene FileChooserScene = new Scene(vbox,800,800);
         imagechooser.setScene(FileChooserScene);
         imagechooser.show();
+    }
+    
+    private void webtransition() {
+        if (transitionstate ==0) {
+            workspace.getChildren().clear();
+            workspace.getChildren().add(webTransitionButton);
+            try {  
+                WebView web = new WebView();     
+               // String path =  "././sites/";
+               // path += ePortfolioName + "/index.html";  
+                //File loc = new File("././src/webdata/index.html");
+                //web.getEngine().load(loc.toURI().toURL().toString());
+                web.getEngine().load("https://www.google.com");
+                web.getEngine().setJavaScriptEnabled(true);
+                web.minWidth(1920);
+                workspace.getChildren().add(web);
+            } catch(Exception e) {  
+                e.printStackTrace();  
+            }          
+            
+            transitionstate =1;
+        }
+        else {
+            
+            workspace.getChildren().clear();
+            initPageListToolbar();
+            initPageEditPane();
+            reloadPageListVBox(ePortfolio);
+            reloadPageEditorPane(ePortfolio);
+            initTotalEventHandlers();
+            transitionstate = 0;
+        }
     }
 }

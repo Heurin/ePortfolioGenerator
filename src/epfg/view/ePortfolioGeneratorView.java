@@ -98,6 +98,7 @@ import javafx.scene.text.Text;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import ssm.view.SlideShowMakerView;
 
 /**
  *
@@ -644,6 +645,10 @@ public class ePortfolioGeneratorView {
     }
 
     private void AddSlideShow() {
+        SlideShowMakerView view = new SlideShowMakerView();
+        Stage SlideStage = new Stage();
+        view.startUI(SlideStage,"Make SlideShow");
+        
     }
 
     private void AddText() {

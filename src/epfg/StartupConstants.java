@@ -47,6 +47,10 @@ public class StartupConstants {
     public static String ICON_CLEAR = "clear.png";
     public static String ICON_REVERT = "revert.png";
     public static String ICON_LAYOUT = "layout.png";
+    public static String ICON_FONT = "font.png";
+    public static String ICON_STUDENT = "student.png";
+    public static String ICON_FOOTER = "footer.png";
+    public static String ICON_BANNER = "banner.png";
     
     // CSS STYLE SHEET CLASSES
     public static String    CSS_CLASS_VERTICAL_TOOLBAR_BUTTON = "vertical_toolbar_button";

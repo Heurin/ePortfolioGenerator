@@ -21,15 +21,24 @@ public class PageEditView extends HBox{
     String component;
     String title;
     Label label;
-    public PageEditView(String inputTitle) {
+    public PageEditView(ePortfolioGeneratorView ui, Page inputPage) {
         this.getStyleClass().clear();
-        this.getStyleClass().add("page_edit_view");
-        title = inputTitle;
+        if (ui.getEPortfolio().getSelectedPage() != inputPage){
+            this.getStyleClass().add("page_edit_view");
+        }
+        else {
+            this.getStyleClass().add("page_selection");
+        }
+        title = inputPage.getTitle();
         label = new Label(title);
         getChildren().add(label);
         this.setOnMouseClicked(e -> {
             this.getStyleClass().clear();
             this.getStyleClass().add("page_selection");
+            ui.getEPortfolio().setSelectedPage(inputPage);
+            ui.reloadPageListVBox(ui.getEPortfolio());
+            ui.reloadPageEditorPane(ui.getEPortfolio());
+            
         });
     }
     public void setTitle(String initTitle) {

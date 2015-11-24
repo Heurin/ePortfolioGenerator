@@ -5,8 +5,10 @@
  */
 package epfg.controller;
 
+import epfg.model.Page;
 import epfg.model.ePortfolioModel;
 import epfg.view.ePortfolioGeneratorView;
+import java.util.ArrayList;
 import java.util.Optional;
 import javafx.scene.control.TextInputDialog;
 import properties_manager.PropertiesManager;
@@ -27,7 +29,7 @@ public class ePortfolioEditController {
         ePortfolioModel ePortfolio = ui.getEPortfolio();
 	PropertiesManager props = PropertiesManager.getPropertiesManager();
         
-        TextInputDialog dialog = new TextInputDialog("New PAge");
+        TextInputDialog dialog = new TextInputDialog("New Page");
         dialog.setTitle("Page Title Dialog");
         dialog.setHeaderText("Enter new Page Title");
         dialog.setContentText("New Page Title : ");
@@ -35,16 +37,27 @@ public class ePortfolioEditController {
         // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
-            ePortfolio.addPage(result.get());
+            ArrayList<String> a = new ArrayList<String>();
+            Page n = new Page(result.get(), a);
+            ePortfolio.addPage(n);
+            ePortfolio.setSelectedPage(n);
         }
         else {
             
         }        
-        
+        if (ePortfolio.getPages().size() == 1) {
+            ui.initPageEditPane();
+            ui.initPageComponentEventHandler();
+        }
+        ui.reloadPageListVBox(ePortfolio);
+        ui.reloadPageEditorPane(ePortfolio);
     }
     
     public void processRemovePageRequst() {
         ePortfolioModel ePortfolio = ui.getEPortfolio();
+        ePortfolio.getPages().remove(ePortfolio.getSelectedPage());
+        ui.reloadPageListVBox(ePortfolio);
+        ui.reloadPageEditorPane(ePortfolio);
     }
    
 }

@@ -71,7 +71,7 @@ public class FileController {
     
     public void handleNewEPortfolioRequest() {
         ePortfolioModel ePortfolio = ui.getEPortfolio();
-
+        ePortfolio.reset();
         
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         TextInputDialog dialog = new TextInputDialog("New ePortfolio");

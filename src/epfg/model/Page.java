@@ -5,6 +5,7 @@
  */
 package epfg.model;
 
+import java.util.ArrayList;
 import javafx.collections.ObservableList;
 
 /**
@@ -13,10 +14,10 @@ import javafx.collections.ObservableList;
  */
 public class Page {
     String pageTitle;
-    ObservableList<String> components;
+    ArrayList<String> components;
     //public Page(String newPageTitle)
     
-    public Page(String initTitle, ObservableList<String> initcomponents) {
+    public Page(String initTitle, ArrayList<String> initcomponents) {
         pageTitle = initTitle;
         components = initcomponents;
     }
@@ -24,7 +25,7 @@ public class Page {
     public String getTitle() {
         return pageTitle;
     }
-    public ObservableList<String> getComponents() {
+    public ArrayList<String> getComponents() {
         return components;
     }
     

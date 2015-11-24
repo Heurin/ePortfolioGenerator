@@ -12,6 +12,7 @@ import epfg.LanguagePropertyType;
 import epfg.view.ePortfolioGeneratorView;
 
 import epfg.view.ePortfolioGeneratorView;
+import java.util.ArrayList;
 import javafx.collections.ObservableList;
 
 /**
@@ -34,7 +35,14 @@ public class ePortfolioModel {
 	return selectedPage != null;
     }
     public void addPage(String initTitle){
-        title = initTitle;        
+        ArrayList<String> a = new ArrayList<String>();
+        Page cr = new Page(initTitle, a);
+        pages.add(cr);
+        
+        
+    }
+    public void addPage(Page initPage){
+        pages.add(initPage);
     }
     
     public ObservableList<Page> getPages() {

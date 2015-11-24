@@ -637,6 +637,12 @@ public class ePortfolioGeneratorView {
         Button OK = new Button("OK");
         Button cancel = new Button("Cancel");
         Confirm.getChildren().addAll(OK,cancel);
+        OK.setOnAction(e -> {
+            imagechooser.close();
+        });
+        cancel.setOnAction(e -> {
+            imagechooser.close();
+        });        
         VBox vbox = new VBox(30);
         vbox.getChildren().addAll(labelHb,chooseFileButton,ImportStatus,Confirm);
         Scene FileChooserScene = new Scene(vbox,800,800);
@@ -666,6 +672,12 @@ public class ePortfolioGeneratorView {
         HBox confirmation = new HBox(5);
         Button OK = new Button("OK");
         Button Cancel = new Button("Cancel");
+        OK.setOnAction(e -> {
+            TextStage.close();
+        });
+        Cancel.setOnAction(e -> {
+            TextStage.close();
+        });
         confirmation.getChildren().addAll(OK,Cancel);
         
         vbox.getChildren().addAll(label,input,confirmation);
@@ -682,7 +694,12 @@ public class ePortfolioGeneratorView {
         VBox vbox = new VBox(5);
         Label label = new Label("Enter HyperLink");
         TextField input = new TextField();
-        
+        OK.setOnAction(e -> {
+            TextStage.close();
+        });
+        Cancel.setOnAction(e -> {
+            TextStage.close();
+        });        
         vbox.getChildren().addAll(label,input,confirmation);
         Scene scene = new Scene(vbox,300,200);
         TextStage.setScene(scene);
@@ -710,7 +727,12 @@ public class ePortfolioGeneratorView {
         Button OK = new Button("OK");
         Button Cancel = new Button("Cancel");
         confirmation.getChildren().addAll(OK,Cancel);
-        
+        OK.setOnAction(e -> {
+            TextStage.close();
+        });
+        Cancel.setOnAction(e -> {
+            TextStage.close();
+        });        
         vbox.getChildren().addAll(label,input1,input2,input3,input4,input5,confirmation);
         Scene TextScene = new Scene(vbox,800,800);
         TextStage.setScene(TextScene);
@@ -756,6 +778,12 @@ public class ePortfolioGeneratorView {
         Button OK = new Button("OK");
         Button cancel = new Button("Cancel");
         Confirm.getChildren().addAll(OK,cancel);
+        OK.setOnAction(e -> {
+            videochooser.close();
+        });
+        cancel.setOnAction(e -> {
+            videochooser.close();
+        });        
         VBox vbox = new VBox(30);
         vbox.getChildren().addAll(labelHb,widthHBox,heightHbox,captionHbox,chooseFileButton,ImportStatus,Confirm);
         Scene FileChooserScene = new Scene(vbox,800,800);
@@ -805,6 +833,12 @@ public class ePortfolioGeneratorView {
         Button OK = new Button("OK");
         Button cancel = new Button("Cancel");
         Confirm.getChildren().addAll(OK,cancel);
+        OK.setOnAction(e -> {
+            imagechooser.close();
+        });
+        cancel.setOnAction(e -> {
+            imagechooser.close();
+        });        
         VBox vbox = new VBox(30);
         vbox.getChildren().addAll(labelHb,widthHBox,heightHbox,captionHbox,chooseFileButton,ImportStatus,Confirm);
         Scene FileChooserScene = new Scene(vbox,800,800);

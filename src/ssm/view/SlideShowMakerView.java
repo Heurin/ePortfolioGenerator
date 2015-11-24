@@ -241,6 +241,12 @@ public class SlideShowMakerView {
         HBox Confirmation = new HBox();
         Button OK = new Button("OK");
         Button Cancel = new Button("Cancel");
+        OK.setOnAction(e -> {
+            primaryStage.close();
+        });
+        Cancel.setOnAction(e -> {
+            primaryStage.close();
+        });
         Confirmation.getChildren().addAll(OK,Cancel);
 	ssmPane.setBottom(Confirmation);
         // NOW TIE THE SCENE TO THE WINDOW, SELECT THE STYLESHEET

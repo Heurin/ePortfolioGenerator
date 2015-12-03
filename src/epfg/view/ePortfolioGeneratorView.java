@@ -49,6 +49,7 @@ import static epfg.StartupConstants.ICON_EXIT;
 import static epfg.StartupConstants.ICON_EXPORT;
 import static epfg.StartupConstants.ICON_FONT;
 import static epfg.StartupConstants.ICON_FOOTER;
+import static epfg.StartupConstants.ICON_HEADER;
 import static epfg.StartupConstants.ICON_HYPERLINK;
 import static epfg.StartupConstants.ICON_IMAGE;
 import static epfg.StartupConstants.ICON_LAYOUT;
@@ -158,6 +159,7 @@ public class ePortfolioGeneratorView {
     Button ColorChooserButton;
     Button AddListButton;
     Button AddHyperLinkButton;
+    Button AddHeaderButton;
     ePortfolioModel ePortfolio;
     ePortfolioFileManager fileManager;
     int transitionstate;
@@ -298,6 +300,9 @@ public class ePortfolioGeneratorView {
         AddHyperLinkButton.setOnAction(e -> {
             InputHyperLink();
         });
+        AddHeaderButton.setOnAction(e -> {
+            
+        });
         
     }
     private void initFileToolbar(){
@@ -430,6 +435,7 @@ public class ePortfolioGeneratorView {
         AddImageButton = initChildButton(pageToolbarHBox,ICON_IMAGE, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
                 //new Button(ICON_IMAGE);
         AddVideoButton = initChildButton(pageToolbarHBox,ICON_VIDEO, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        AddHeaderButton = initChildButton(pageToolbarHBox, ICON_HEADER, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddTextButton  = initChildButton(pageToolbarHBox,ICON_TEXT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddListButton = initChildButton(pageToolbarHBox,ICON_LIST, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddHyperLinkButton = initChildButton(pageToolbarHBox,ICON_HYPERLINK, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);

@@ -21,7 +21,7 @@ import ssm.view.SlideShowMakerView;
 public class ImageSelectionController {
     
     /**
-     * Default contstructor doesn't need to initialize anything
+     * Default constructor doesn't need to initialize anything
      */
     public ImageSelectionController() {    }
     

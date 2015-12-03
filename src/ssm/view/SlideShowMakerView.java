@@ -81,7 +81,6 @@ public class SlideShowMakerView {
     Button removeSlideButton;
     Button moveUpSlideButton;
     Button moveDownSlideButton;
-    Button setTitleButton;
     
     // AND THIS WILL GO IN THE CENTER
     ScrollPane slidesEditorScrollPane;
@@ -169,7 +168,6 @@ public class SlideShowMakerView {
 	removeSlideButton=this.initChildButton(slideEditToolbar, ICON_REMOVE_SLIDE, TOOLTIP_REMOVE_SLIDE, CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);
         moveUpSlideButton = this.initChildButton(slideEditToolbar,   ICON_MOVE_UP,   TOOLTIP_MOVE_UP, CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);
 	moveDownSlideButton = this.initChildButton(slideEditToolbar,   ICON_MOVE_DOWN, TOOLTIP_MOVE_DOWN, CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);
-        setTitleButton = this.initChildButton(slideEditToolbar,   ICON_TITLECHANGER, TOOLTIP_MOVE_DOWN, CSS_CLASS_VERTICAL_TOOLBAR_BUTTON, false);
         // AND THIS WILL GO IN THE CENTER
 	slidesEditorPane = new VBox();
 	slidesEditorScrollPane = new ScrollPane(slidesEditorPane);
@@ -203,10 +201,6 @@ public class SlideShowMakerView {
         {
             editController.processMoveDownSlideRequest();
             updateToolbarControls(false);
-        });
-        setTitleButton.setOnAction (e ->
-        {    editController.processChangeSlideTitleRequest();
-        updateToolbarControls(false);
         });
         
         
@@ -300,7 +294,6 @@ public class SlideShowMakerView {
         removeSlideButton.setDisable(!selected);
         moveUpSlideButton.setDisable(!selected || index == 0 || index == slideSize);
         moveDownSlideButton.setDisable(!selected || index >=slideSize-1 );
-        setTitleButton.setDisable(slideShow.getSlides().size() == 0);
         
     }
 

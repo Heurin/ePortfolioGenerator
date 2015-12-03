@@ -56,6 +56,7 @@ public class StartupConstants {
     public static String ICON_LIST = "list.png";
     public static String ICON_DOT = "dot.png";
     public static String ICON_HYPERLINK = "hyperlink.png";
+    public static String ICON_HEADER = "header.png";
     // CSS STYLE SHEET CLASSES
     public static String    CSS_CLASS_VERTICAL_TOOLBAR_BUTTON = "vertical_toolbar_button";
     public static String    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON = "horizontal_toolbar_button";

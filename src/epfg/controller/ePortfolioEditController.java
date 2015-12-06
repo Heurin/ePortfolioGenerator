@@ -44,13 +44,14 @@ public class ePortfolioEditController {
         }
         else {
             
-        }        
+        }
         if (ePortfolio.getPages().size() == 1) {
             ui.initPageEditPane();
             ui.initPageComponentEventHandler();
         }
         ui.reloadPageListVBox(ePortfolio);
         ui.reloadPageEditorPane(ePortfolio);
+        ui.updatePageListToolbarControls(ePortfolio.isPageSelected());
     }
     
     public void processRemovePageRequst() {
@@ -58,6 +59,11 @@ public class ePortfolioEditController {
         ePortfolio.getPages().remove(ePortfolio.getSelectedPage());
         ui.reloadPageListVBox(ePortfolio);
         ui.reloadPageEditorPane(ePortfolio);
+        ui.updatePageListToolbarControls(!ePortfolio.isPageSelected());
+        if(ePortfolio.getPages().size() ==0) {
+            ui.initPageListToolbar();
+            ui.initPageListEventHandler();
+        }
     }
    
 }

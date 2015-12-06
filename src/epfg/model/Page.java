@@ -5,12 +5,14 @@
  */
 package epfg.model;
 
+import epfg.Contents.HeaderComponent;
 import epfg.Contents.ImageComponent;
 import epfg.Contents.TextComponent;
 import epfg.Contents.VideoComponent;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.ObservableList;
+import javafx.scene.image.Image;
 import ssm.model.SlideShowModel;
 
 /**
@@ -26,6 +28,10 @@ public class Page {
     List<SlideShowModel> slides = new ArrayList();
     List<TextComponent> texts = new ArrayList();
     List<VideoComponent> videos = new ArrayList();
+    List<HeaderComponent>headers = new ArrayList();
+    
+    Image BannerImage;
+    
     String font, footer,layout,backgroundColor;
     String SelectedType;
     int SelectedPosition;
@@ -105,6 +111,9 @@ public class Page {
     public List<SlideShowModel> getSlideComponents() {
         return slides;
     }
+    public List<HeaderComponent> getHeaderCOmponents() {
+        return headers;
+    }
     
     
     
@@ -120,24 +129,24 @@ public class Page {
     
     
 
-    public void AddImage(String imagePath, String imageFileName, String caption, double height, double width) {
-        ImageComponent imgComp = new ImageComponent(imagePath, imageFileName, caption,  height, width);
+    public void AddImage(String imagePath, String imageFileName, String caption, double height, double width, String position) {
+        ImageComponent imgComp = new ImageComponent(imagePath, imageFileName, caption,  height, width, position);
         components.add("image");
         int index = images.size();
         componentsIndex.add(index);
         images.add(imgComp);
     }
     
-    public void AddVideo() {
-        VideoComponent vidComp = new VideoComponent();
+    public void AddVideo(String videoPath, String videoFileName,String caption, double height, double width) {
+        VideoComponent vidComp = new VideoComponent(videoPath, videoFileName,caption,  height, width);
         components.add("video");
         int index = videos.size();
         componentsIndex.add(index);
         videos.add(vidComp);
     }
     
-    public void AddParagraph(String inputP) {
-        TextComponent paraComp = new TextComponent("paragraph",inputP);
+    public void AddParagraph(String inputP, String inputF) {
+        TextComponent paraComp = new TextComponent(inputF, inputP);
         components.add("paragraph");
         int index = texts.size();
         componentsIndex.add(index);
@@ -150,17 +159,83 @@ public class Page {
         slides.add(slideshow);    
     }
     
-public void RemoveParagraph() {
+public void RemoveComponent(int index) {
+   
+    String removeType = components.get(index);
+    int position =0;
+    for(int i=0; i<index; i++) {
+        if(components.get(i).equals(removeType)) {
+            position++;
+        }
+    }
+    components.remove(index);
+    componentsIndex.remove(index);
+    if (removeType.equals("image")) {
+        images.remove(position);
+        for (int i=index; i<components.size(); i++) {
+            if(components.get(i).equals("image")){
+                int t = componentsIndex.get(i);
+                componentsIndex.set(t, t-1);
+            }                
+        }
+    }
+        
+        /**
+        images.remove(relativeIndex);
+        ArrayList<Integer> temp = new ArrayList();
+        for(int i = 0 ; i < components.size() ; i++) {
+            String s = components.get(i);
+            
+            if (s.equals("image")) {
+                temp.add(i);            
+            }
+        }
+        for (int i=0; i< temp.size(); i++){
+            int ind = temp.get(i);
+            if(componentsIndex.get(ind) > relativeIndex) {
+                int t = componentsIndex.get(ind);
+                componentsIndex.set(ind, t-1);
+            }
+        }
+        * **/
     
-}
-public void RemovePhoto() {
-    
-}
-public void RemoveVideo() {
-    
-}
-public void RemoveSlideShow() {
-    
+    if (removeType.equals("video")) {
+        videos.remove(position);
+        for (int i=index; i<components.size(); i++) {
+            if(components.get(i).equals("video")){
+                int t = componentsIndex.get(i);
+                componentsIndex.set(t, t-1);
+            }                
+        }
+    }
+    if (removeType.equals("slideshow")) {
+        slides.remove(position);
+        for (int i=index; i<components.size(); i++) {
+            if(components.get(i).equals("slideshow")){
+                int t = componentsIndex.get(i);
+                componentsIndex.set(t, t-1);
+            }                
+        }
+    } 
+    if (removeType.equals("paragraph")) {
+        texts.remove(position);
+        for (int i=index; i<components.size(); i++) {
+            if(components.get(i).equals("paragraph")){
+                int t = componentsIndex.get(i);
+                componentsIndex.set(t, t-1);
+            }                
+        }
+    }
+
+    if (removeType.equals("header")) {
+        headers.remove(position);
+        for (int i=index; i<components.size(); i++) {
+            if(components.get(i).equals("header")){
+                int t = componentsIndex.get(i);
+                componentsIndex.set(t, t-1);
+            }                
+        }
+    }    
 }
     
     
@@ -187,6 +262,7 @@ public void RemoveSlideShow() {
 
     public void setFooter(String inputfooter) {
         footer = inputfooter;
+        hasFooter = true;
     }
 
     public String getFooter() {
@@ -205,4 +281,26 @@ public void RemoveSlideShow() {
     public int getSelectedPosition() {
         return SelectedPosition;
     }
+
+    public void setBannerImage(String path, String name) {
+        String imagePath = "file:" + path + name;
+        BannerImage = new Image(imagePath);
+    }
+    
+    public Image getBannerImage() {
+        return BannerImage;
+    }
+    
+    public boolean hasFooter() {
+        return hasFooter;
+    }
+
+    public void AddHeader(String inputH, String inputF, String inputP) {
+        HeaderComponent headerComp = new HeaderComponent(inputH,inputF, inputP);
+        components.add("header");
+        int index = headers.size();
+        componentsIndex.add(index);
+        headers.add(headerComp);         
+    }
+    
 }

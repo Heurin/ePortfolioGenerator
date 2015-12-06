@@ -21,9 +21,6 @@ public class PageEditController {
     public void processRevertChangeRequest() {
     }
 
-    public void processClearComponentsRequest() {
-        
-    }
 
     public void processAddSlideShowRequest() {
     }
@@ -34,6 +31,8 @@ public class PageEditController {
     }
 
     public void processAddVideoRequest() {
+        VideoSelectionController videoController = new VideoSelectionController();
+        videoController.processSelectVideo(ui);
     }
 
     public void processAddImageRequest() {
@@ -41,8 +40,16 @@ public class PageEditController {
         imageController.processSelectImage(ui);        
     }
 
-    public void processRemoveComponentRequest() {
-        
+    public void processAddListRequest() {
+        ListInputController listcon = new ListInputController();
+        listcon.MakeList(ui);
     }
+    
+    public void processAddHeaderRequest() {
+        HeaderInputController headercon = new HeaderInputController();
+        headercon.processData(ui);
+    }
+    
+
     
 }

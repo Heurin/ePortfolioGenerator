@@ -13,8 +13,11 @@ import epfg.model.ePortfolioModel;
 import epfg.view.PageListEditView;
 import epfg.view.ePortfolioGeneratorView;
 import java.net.URL;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -72,6 +75,21 @@ public class ImageSelectionController {
         Label fnLabel = new Label();
 
         
+        Label positionlabel = new Label("Choose position of image");
+        ObservableList<String> posoptions = 
+        FXCollections.observableArrayList(
+            "Left",
+            "Right",
+            "Neither"
+        );
+        final ComboBox positions = new ComboBox(posoptions);
+        HBox optionbox = new HBox();
+        optionbox.getChildren().add(positions);
+        
+        
+        
+        
+        
         chooseFileButton.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
             
@@ -124,8 +142,9 @@ public class ImageSelectionController {
         OK.setOnAction(e -> {
             double width = Double.parseDouble(widthField.getText());
             double height = Double.parseDouble(heightField.getText());
+            String p = positions.getValue().toString();
             ePortfolioModel ePortfolio = ui.getEPortfolio();
-            ePortfolio.getSelectedPage().AddImage(pathLabel.getText(),fnLabel.getText(),captionField.getText(),width,height);
+            ePortfolio.getSelectedPage().AddImage(pathLabel.getText(),fnLabel.getText(),captionField.getText(),width,height,p);
             imagechooser.close();
             ui.reloadPageEditorPane(ePortfolio);
         });
@@ -133,7 +152,7 @@ public class ImageSelectionController {
             imagechooser.close();
         });        
         VBox vbox = new VBox(30);
-        vbox.getChildren().addAll(labelHb,widthHBox,heightHbox,captionHbox,chooseFileButton,imageView,ImportStatus,Confirm);
+        vbox.getChildren().addAll(labelHb,widthHBox,heightHbox,positionlabel,positions,captionHbox,chooseFileButton,imageView,ImportStatus,Confirm);
         Scene FileChooserScene = new Scene(vbox,800,800);
         imagechooser.setScene(FileChooserScene);
         imagechooser.show();    

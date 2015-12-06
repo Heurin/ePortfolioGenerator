@@ -40,6 +40,7 @@ public class PageListEditView extends HBox{
             ui.getEPortfolio().setSelectedPage(inputPage);
             ui.reloadPageListVBox(ui.getEPortfolio());
             ui.reloadPageEditorPane(ui.getEPortfolio());
+            ui.updatePageListToolbarControls(true);
             
         });
     }

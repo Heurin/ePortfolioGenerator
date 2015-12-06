@@ -17,11 +17,45 @@ public class ImageComponent{
     double height;
     double width;
     String caption;
-    public ImageComponent(String inPath, String inName, String incaption, double customheight, double customwidth){
+    String position;
+    public ImageComponent(String inPath, String inName, String incaption, double customheight, double customwidth, String inPosition){
         imagePath = inPath;
         imageFileName = inName;
         caption = incaption;
         height = customheight;
         width = customwidth;
+        position = inPosition;
+    }
+    public String getPath() {
+        return imagePath;
+    }
+    public String getFileName() {
+        return imageFileName;
+    }
+    public String getCaption() {
+        return caption;
+    }
+    public double getHeight() {
+        return height;
+    }
+    public double getWidth() {
+        return width;
+    }
+    public String getPosition() {
+        return position;
+    }
+    
+    public void setHeight(double customheight) {
+        height = customheight;
+    }
+    
+    public void setWidth(double customwidth) {
+        width = customwidth;
+    }
+    public void setCaption(String inCaption) {
+        caption = inCaption;
+    }
+    public void setPosition(String inPosition){
+        position = inPosition;
     }
 }

@@ -24,6 +24,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import properties_manager.PropertiesManager;
 import epfg.LanguagePropertyType;
+import static epfg.LanguagePropertyType.ERROR_TITLE;
+import static epfg.LanguagePropertyType.IMAGE_MISSING;
 import static epfg.LanguagePropertyType.TOOLTIP_ADD_PAGE;
 import static epfg.LanguagePropertyType.TOOLTIP_EXIT;
 import static epfg.LanguagePropertyType.TOOLTIP_LOAD_EPORTFOLIO;
@@ -120,7 +122,6 @@ public class ePortfolioGeneratorView {
     Button saveEPortfolioButton;
     Button saveAsEPortfolioButton;
     Button exportButton;
-    Button viewEPortfolioButton;
     
     Button exitButton;
     
@@ -223,11 +224,6 @@ public class ePortfolioGeneratorView {
         exportButton.setOnAction(e -> {
             fileController.handleExportEPortfolioRequest();
         });
-        viewEPortfolioButton.setOnAction( e-> {
-           Stage webviewexample = new Stage();
-           webview = new ePortfolioWebView(this, "ePortfolioWebview");
-           webview.start(webviewexample);
-        });
         exitButton.setOnAction(e -> {
             fileController.handleExitRequest();
         });
@@ -273,9 +269,6 @@ public class ePortfolioGeneratorView {
             //pageEditController.processAddSlideShowRequest();
             AddSlideShow();
         });
-        RemoveComponentButton.setOnAction(e -> {
-            pageEditController.processRemoveComponentRequest();
-        });
         ClearComponentButton.setOnAction(e -> {
             //pageEditController.processClearComponentsRequest();
             pageComponentVBox.getChildren().clear();
@@ -305,10 +298,10 @@ public class ePortfolioGeneratorView {
             webtransition();
         });
         AddListButton.setOnAction (e -> {
-            AddList();
+            pageEditController.processAddListRequest();
         });
         AddHeaderButton.setOnAction(e -> {
-            
+            pageEditController.processAddHeaderRequest();
         });
         AddHeaderButton.setOnAction(e -> {
             
@@ -330,7 +323,6 @@ public class ePortfolioGeneratorView {
         saveEPortfolioButton = initChildButton(fileToolbarPane, ICON_SAVE_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         saveAsEPortfolioButton = initChildButton(fileToolbarPane, ICON_SAVE_AS_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         exportButton = initChildButton(fileToolbarPane, ICON_EXPORT,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        viewEPortfolioButton = initChildButton(fileToolbarPane, ICON_VIEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         exitButton = initChildButton(fileToolbarPane, ICON_EXIT,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
     }
     private void initWindow(String appTitle){
@@ -367,10 +359,14 @@ public class ePortfolioGeneratorView {
 	PropertiesManager props = PropertiesManager.getPropertiesManager();
 	String imagePath = "file:" + PATH_ICONS + iconFileName;
 	Image buttonImage = new Image(imagePath);
+        ImageView buttonInside = new ImageView(buttonImage);    
+        buttonInside.setFitWidth(25);
+        buttonInside.setFitHeight(25);
+        
 	Button button = new Button();
 	button.getStyleClass().add(CSS_CLASS_BUTTONS);
 	button.setDisable(disabled);
-	button.setGraphic(new ImageView(buttonImage));
+	button.setGraphic(buttonInside);
 	Tooltip buttonTooltip = new Tooltip(props.getProperty(tooltip.toString()));
 	button.setTooltip(buttonTooltip);
 	toolbar.getChildren().add(button);
@@ -401,7 +397,9 @@ public class ePortfolioGeneratorView {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         AddPageButton = initChildButton(PageListEditToolbarVBox, ICON_ADD_PAGE,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         RemovePageButton = initChildButton(PageListEditToolbarVBox, ICON_REMOVE_PAGE,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-
+        RemovePageButton.setDisable(true);
+        
+        
         workspace.getChildren().add(PageListEditToolbarVBox);
         PageListEditToolbarVBox.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VBOX);   
 
@@ -447,11 +445,10 @@ public class ePortfolioGeneratorView {
         AddHeaderButton = initChildButton(pageToolbarHBox, ICON_HEADER, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddTextButton  = initChildButton(pageToolbarHBox,ICON_TEXT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddListButton = initChildButton(pageToolbarHBox,ICON_LIST, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        AddHeaderButton = initChildButton(pageToolbarHBox, ICON_HEADER, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddSlideShowButton = initChildButton(pageToolbarHBox,ICON_SLIDESHOW, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        RemoveComponentButton = initChildButton(pageToolbarHBox,ICON_REMOVE, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        //RemoveComponentButton = initChildButton(pageToolbarHBox,ICON_REMOVE, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         ClearComponentButton = initChildButton(pageToolbarHBox,ICON_CLEAR, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        RevertButton = initChildButton(pageToolbarHBox,ICON_REVERT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        //RevertButton = initChildButton(pageToolbarHBox,ICON_REVERT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         SelectLayoutButton = initChildButton(pageToolbarHBox,ICON_LAYOUT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         SelectFontButton = initChildButton(pageToolbarHBox,ICON_FONT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         EnterStudentInfoButton = initChildButton(pageToolbarHBox,ICON_STUDENT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
@@ -494,7 +491,7 @@ public class ePortfolioGeneratorView {
 	epfgPane.setCenter(workspace);
 	
 	// NEXT ENABLE/DISABLE BUTTONS AS NEEDED IN THE FILE TOOLBAR
-/**	saveEPortfolioButton.setDisable(saved);
+	saveEPortfolioButton.setDisable(saved);
 	//viewSlideShowButton.setDisable(slideShow.getSlides().size() ==0);
 	
         boolean selected = ePortfolio.isPageSelected();
@@ -502,13 +499,19 @@ public class ePortfolioGeneratorView {
         int pageSize = ePortfolio.getPages().size();
 	// AND THE SLIDESHOW EDIT TOOLBAR
         newEPortfolioButton.setDisable(false);
-        loadEPortfolioButton.setDisable(false);
-        saveEPortfolioButton.setDisable(false);
-        saveAsEPortfoliobutton.setDisable(false);
-        exportButton.setDisable(false);
+        loadEPortfolioButton.setDisable(saved);
+        saveEPortfolioButton.setDisable(saved);
+        saveAsEPortfolioButton.setDisable(saved);
+        exportButton.setDisable(saved);
         exitButton.setDisable(false);
-**/        
+       
     }
+    
+    public void updatePageListToolbarControls(boolean selected) {
+        RemovePageButton.setDisable(!selected);
+    }
+    
+    
     public void reloadPageListVBox(ePortfolioModel ePortfolioToLoad) {
         PageListVBox.getChildren().clear();
         ePortfolio = ePortfolioToLoad;
@@ -518,27 +521,22 @@ public class ePortfolioGeneratorView {
             PageListEditView listview = new PageListEditView(this,page);
             listview.setPrefWidth(200.00);
             
-            
-            
             PageListVBox.getChildren().add(listview);
         }
     }
-   // public void reloadPageEditorVBox(ePortfolioModel ePortfolioToLoad){
-     //   PageEditorVbox.getChildren().clear();
-       // ePortfolio = ePortfolioToLoad;
-        
-    //}
+    
     public void reloadPageEditorPane(ePortfolioModel ePortfolioToLoad) {
         ePortfolio = ePortfolioToLoad;
         Page selected = ePortfolio.getSelectedPage();
         pageTitleField.setText(selected.getTitle());               
         List<String> list = selected.getComponents();
         pageComponentVBox.getChildren().clear();
-        for (String component : list) {
-            ComponentEditView componentBox = new ComponentEditView(this, component);
+        for (int i=0; i<list.size(); i++) {
+            String component = list.get(i);
+            ComponentEditView componentBox = new ComponentEditView(this, component,i);
             //componentBox.getChildren().add(typeText);
             pageComponentVBox.getChildren().add(componentBox);
-             
+              
        }
         
         
@@ -573,11 +571,16 @@ public class ePortfolioGeneratorView {
 
     private void FontSelector() {
         List<String> choices = new ArrayList<>();
-        choices.add("Font A");
-        choices.add("Font B");
-        choices.add("Font C");
+        choices.add("Montserrat");
+        choices.add("Indie Flower");
+        choices.add("Sigmar One");
+        choices.add("Pacifico");
+        choices.add("Open Sans");
+        
 
-        ChoiceDialog<String> dialog = new ChoiceDialog<>("Font A", choices);
+            
+
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("Open Sans", choices);
         dialog.setTitle("Choose Font");
         dialog.setHeaderText("Choose Font");
         dialog.setContentText("Select :");
@@ -594,7 +597,7 @@ public class ePortfolioGeneratorView {
     }
     private void ColorSelector() {
         TextInputDialog dialog = new TextInputDialog("blue");
-        dialog.setTitle("Enter Color Code (RGB, HEX, default Color name");
+        dialog.setTitle("Enter Color Code (RGB, HEX, default Color name(eg, blue, red, yellow)");
         dialog.setHeaderText("Put Color Code");
         dialog.setContentText("Please enter Color Code:");
 
@@ -633,49 +636,88 @@ public class ePortfolioGeneratorView {
         }
     }
     private void SelectBannerImage() {
+        PropertiesManager props = PropertiesManager.getPropertiesManager();	
+
+        
         Stage imagechooser = new Stage();
         imagechooser.setTitle("Choose Banner Image");
         Label label = new Label("Add Banner Image File");
         HBox labelHb = new HBox();
         labelHb.getChildren().add(label);
         
-
+        
         Text ImportStatus = new Text();
         
         
         Button chooseFileButton = new Button("Choose File");
+        
+        
+        ImageView imageView = new ImageView();
+        Label pathLabel = new Label();
+        Label fnLabel = new Label();
+
+        
         chooseFileButton.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
             
             fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All Images", "*.*"),
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG", "*.png")
             );
             File selectedFile = fileChooser.showOpenDialog(null);
+            int i = selectedFile.getName().lastIndexOf('.');
+            
             if (selectedFile != null) {
-                    
-                    ImportStatus.setText("File selected: " + selectedFile.getName());
+                    String path = selectedFile.getPath().substring(0, selectedFile.getPath().indexOf(selectedFile.getName()));
+                    String fileName = selectedFile.getName(); 
+                    pathLabel.setText(path);
+                    fnLabel.setText(fileName);
+                    try {
+                        URL fileURL = selectedFile.toURI().toURL();
+                        Image image = new Image(fileURL.toExternalForm());
+                        
+                        imageView.setImage(image);
+                        double scaledWidth = 500;
+                        double perc = scaledWidth / image.getWidth();
+                        double scaledHeight = image.getHeight() * perc;
+                        imageView.setFitWidth(scaledWidth);
+                        imageView.setFitHeight(scaledHeight);
+                        
+                        
+                        ImportStatus.setText("File selected: " + selectedFile.getName());
+                    } catch (Exception ex) {
+                        
+                    }
             }
             else {
             ImportStatus.setText("File selection cancelled.");
-            }            
+	    // @todo provide error message for no files selected
+            
+            ErrorHandler eH = this.getErrorHandler();
+            eH.processError(IMAGE_MISSING, props.getProperty(ERROR_TITLE), props.getProperty(ERROR_TITLE));
+            }           
         });
         HBox Confirm = new HBox();
         Button OK = new Button("OK");
         Button cancel = new Button("Cancel");
         Confirm.getChildren().addAll(OK,cancel);
+        
+        //ActionHandler for Image Submit Button
+        
         OK.setOnAction(e -> {
+            ePortfolio.getSelectedPage().setBannerImage(pathLabel.getText(),fnLabel.getText());
             imagechooser.close();
+            this.reloadPageEditorPane(ePortfolio);
         });
         cancel.setOnAction(e -> {
             imagechooser.close();
         });        
         VBox vbox = new VBox(30);
-        vbox.getChildren().addAll(labelHb,chooseFileButton,ImportStatus,Confirm);
+        vbox.getChildren().addAll(labelHb,chooseFileButton,imageView,ImportStatus,Confirm);
         Scene FileChooserScene = new Scene(vbox,800,800);
         imagechooser.setScene(FileChooserScene);
-        imagechooser.show();   
+        imagechooser.show();    
+
     }
 
     private void AddSlideShow() {
@@ -685,59 +727,7 @@ public class ePortfolioGeneratorView {
         
     }
 
-    private void InputHyperLink(){
-        Stage TextStage = new Stage();
-        HBox confirmation = new HBox(5);
-        Button OK = new Button("OK");
-        Button Cancel = new Button("Cancel");
-        confirmation.getChildren().addAll(OK,Cancel);        
-        VBox vbox = new VBox(5);
-        Label label = new Label("Enter HyperLink");
-        TextField input = new TextField();
-        OK.setOnAction(e -> {
-            TextStage.close();
-        });
-        Cancel.setOnAction(e -> {
-            TextStage.close();
-        });        
-        vbox.getChildren().addAll(label,input,confirmation);
-        Scene scene = new Scene(vbox,300,200);
-        TextStage.setScene(scene);
-        TextStage.show();
-    }
-    private void AddList() {
-        Stage TextStage = new Stage();
-        
-        VBox vbox = new VBox(5);
-        
-        Label label = new Label("Make a List");
 
-        
-        
-        TextField input1 = new TextField();
-        
-        TextField input2 = new TextField();
-        
-        TextField input3 = new TextField();
-        
-        TextField input4 = new TextField();
-        
-        TextField input5 = new TextField();
-        HBox confirmation = new HBox(5);
-        Button OK = new Button("OK");
-        Button Cancel = new Button("Cancel");
-        confirmation.getChildren().addAll(OK,Cancel);
-        OK.setOnAction(e -> {
-            TextStage.close();
-        });
-        Cancel.setOnAction(e -> {
-            TextStage.close();
-        });        
-        vbox.getChildren().addAll(label,input1,input2,input3,input4,input5,confirmation);
-        Scene TextScene = new Scene(vbox,800,800);
-        TextStage.setScene(TextScene);
-        TextStage.show();
-    }
 
 
     
@@ -753,7 +743,10 @@ public class ePortfolioGeneratorView {
                 //web.getEngine().load(loc.toURI().toURL().toString());
                 web.getEngine().load("https://www.google.com");
                 web.getEngine().setJavaScriptEnabled(true);
-                web.minWidth(1920);
+                
+                web.autosize();
+
+                
                 workspace.getChildren().add(web);
             } catch(Exception e) {  
                 e.printStackTrace();  

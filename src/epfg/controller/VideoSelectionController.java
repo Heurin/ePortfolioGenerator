@@ -9,15 +9,19 @@ import epfg.LanguagePropertyType;
 import static epfg.StartupConstants.PATH_VIDEOS;
 import epfg.error.ErrorHandler;
 import epfg.model.Page;
+import epfg.model.ePortfolioModel;
 import epfg.view.PageListEditView;
 import epfg.view.ePortfolioGeneratorView;
 import java.io.File;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -56,13 +60,22 @@ public class VideoSelectionController {
         TextField captionField = new TextField();
         captionHbox.getChildren().addAll(captionlabel,captionField);
         
+        
+
+        Text path = new Text();
+        Text fn = new Text();        
+        
+        
         Button chooseFileButton = new Button("Choose File");
         chooseFileButton.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().addAll(new ExtensionFilter("MP4 Files", "*.mp4"));
             File selectedFile = fileChooser.showOpenDialog(null);
+            path.setText(selectedFile.getPath());
+            fn.setText(selectedFile.getName());
             if (selectedFile != null) {
-
+                    path.setText(selectedFile.getPath());
+                    fn.setText(selectedFile.getName());
                     ImportStatus.setText("File selected: " + selectedFile.getName());
             }
             else {
@@ -76,7 +89,12 @@ public class VideoSelectionController {
         Button cancel = new Button("Cancel");
         Confirm.getChildren().addAll(OK,cancel);
         OK.setOnAction(e -> {
+            double width = Double.parseDouble(widthField.getText());
+            double height = Double.parseDouble(heightField.getText());
+            ePortfolioModel ePortfolio = ui.getEPortfolio();
+            ePortfolio.getSelectedPage().AddVideo(path.getText(),fn.getText(),captionField.getText(),width,height);
             videochooser.close();
+            ui.reloadPageEditorPane(ePortfolio);            
         });
         cancel.setOnAction(e -> {
             videochooser.close();

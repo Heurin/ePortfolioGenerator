@@ -8,6 +8,7 @@ package epfg.view;
 import epfg.model.ePortfolioModel;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
@@ -23,10 +24,12 @@ public class ComponentEditView extends HBox{
     ArrayList<Integer> position = new ArrayList(3);
     ePortfolioModel ePortfolio;
     Label typeLabel;
+    int pos;
     
-    public ComponentEditView(ePortfolioGeneratorView initUi, String type) {
+    public ComponentEditView(ePortfolioGeneratorView initUi, String type, int index) {
         ui = initUi;
         ePortfolio = ui.getEPortfolio();
+        pos =index;
         this.setPrefWidth(1000.00);
         
         /**
@@ -41,7 +44,8 @@ public class ComponentEditView extends HBox{
         ui = initUi;
         component = type;
         typeLabel = new Label(type);
-        this.getChildren().add(typeLabel);
+        Button remove = new Button("remove");
+        this.getChildren().addAll(typeLabel, remove);
         
         this.setOnMouseClicked(e-> {
             this.getStyleClass().clear();
@@ -50,6 +54,11 @@ public class ComponentEditView extends HBox{
                 
                 //ui.getEPortfolio().getSelectedPage().setSelectedComponent(type,);
             }
+            ui.reloadPageEditorPane(ePortfolio);
+        });
+        remove.setOnAction(e -> {
+            ePortfolio.getSelectedPage().RemoveComponent(pos);
+            ui.reloadPageEditorPane(ePortfolio);
         });
     }
     

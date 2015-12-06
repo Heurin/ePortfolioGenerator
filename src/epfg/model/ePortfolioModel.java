@@ -45,6 +45,8 @@ public class ePortfolioModel {
         
         
     }
+    
+    
     public void addPage(Page initPage){
         pages.add(initPage);
     }
@@ -120,6 +122,12 @@ public class ePortfolioModel {
     public void changeStudentName(String name) {
         studentName = name;
     }
+
+    public void setStudentName(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
     
   /**  
     public void addSlide(String string, String string0, String string1) {

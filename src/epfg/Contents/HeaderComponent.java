@@ -9,14 +9,10 @@ package epfg.Contents;
  *
  * @author shcho
  */
-public class TextComponent{
-    
-
-    String font;
-    String text;
-    
-    public TextComponent(String newfont, String newText){
-
+public class HeaderComponent {
+    String type,font,text;
+    public HeaderComponent(String newtype, String newfont, String newText){
+        type = newtype;
         text = newText;
         font = newfont;
     }
@@ -26,8 +22,12 @@ public class TextComponent{
     public String getFont() {
         return font;
     }
-    public void changeText(String newFont, String newText){
-        text = newText;
-        font = newFont;
+    public String getType() {
+        return type;
     }
+    public void changeText(String newtype, String newfont, String newText){
+        type = newtype;
+        text = newText;
+        font = newfont;
+    }    
 }

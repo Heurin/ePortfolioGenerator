@@ -10,5 +10,7 @@ package epfg.Contents;
  * @author shcho
  */
 public class VideoComponent{
-    
+    public VideoComponent() {
+        
+    }
 }

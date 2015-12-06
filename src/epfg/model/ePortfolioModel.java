@@ -24,10 +24,14 @@ public class ePortfolioModel {
     String title;
     ObservableList<Page> pages;
     Page selectedPage;
+    String studentName;
+    String font;
+    
     
     public ePortfolioModel(ePortfolioGeneratorView initUI) {
         ui = initUI;
         pages = FXCollections.observableArrayList();
+        studentName = "";
         reset();
     }
     ///
@@ -49,14 +53,31 @@ public class ePortfolioModel {
 	return pages;
     }
     
+    /**
+     * 
+     * @return selected Page Object
+     */
     public Page getSelectedPage() {
 	return selectedPage;
     }
-
+    /**
+     * 
+     * @return title of ePortfolio
+     */
     public String getTitle() { 
 	return title; 
     }
-
+    
+    /**
+     * 
+     * @return student Name;
+     */
+    
+    public String getStudent(){
+        return studentName;
+    }
+    
+    
     // MUTATOR METHODS
     public void setSelectedPage(Page initSelectedPage) {
 	selectedPage = initSelectedPage;
@@ -65,7 +86,13 @@ public class ePortfolioModel {
     public void setTitle(String initTitle) { 
 	title = initTitle; 
     }
-
+    
+    //change Student NAme
+    public void updateStudentName(String inputName){
+        studentName = inputName;
+    }
+    
+    
     // SERVICE METHODS
     
     /**
@@ -76,6 +103,7 @@ public class ePortfolioModel {
 	PropertiesManager props = PropertiesManager.getPropertiesManager();
 	title = props.getProperty(LanguagePropertyType.DEFAULT_EPORTFOLIO_TITLE);
 	selectedPage = null;
+        studentName = "";
     }
 
     /**
@@ -88,6 +116,11 @@ public class ePortfolioModel {
     {
         title = newTitle;
     }
+    
+    public void changeStudentName(String name) {
+        studentName = name;
+    }
+    
   /**  
     public void addSlide(String string, String string0, String string1) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

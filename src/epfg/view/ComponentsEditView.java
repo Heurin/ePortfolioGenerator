@@ -5,6 +5,7 @@
  */
 package epfg.view;
 
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 
 /**
@@ -13,6 +14,24 @@ import javafx.scene.layout.HBox;
  */
 public class ComponentsEditView extends HBox{
     String component;
-    public ComponentsEditView() { }
+    ePortfolioGeneratorView ui;
     
+    public ComponentsEditView(ePortfolioGeneratorView initUi, String type) {
+        ui = initUi;
+        component = type;
+    }
+    
+    public void changeText(String newText) {
+        
+    }
+    public void changeImage(Image newImage) {
+        
+    }
+    public void changeVideo() {
+        
+    }
+    public void changeFooter() {
+        
+    }
+
 }

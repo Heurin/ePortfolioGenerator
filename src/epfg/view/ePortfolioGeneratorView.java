@@ -82,6 +82,7 @@ import epfg.error.ErrorHandler;
 import epfg.file.ePortfolioFileManager;
 import static java.awt.Color.white;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -141,7 +142,6 @@ public class ePortfolioGeneratorView {
     
     TextField ePortfolioTitleField;
     TextField pageTitleField;
-    Button ePortfolioTitleSubmitButton;
     Button pageTitleSubmitButton;
     Button webTransitionButton;
     Button AddImageButton;
@@ -247,6 +247,19 @@ public class ePortfolioGeneratorView {
     public void initPageComponentEventHandler() {
         
         pageEditController = new PageEditController(this);
+        
+        //Submit Page Title Button Event Handler
+        
+        pageTitleSubmitButton.setOnAction(e-> {
+            String ntitle = pageTitleField.getText();
+            ePortfolio.getSelectedPage().setTitle(ntitle);
+            this.reloadPageListVBox(ePortfolio);
+            this.reloadPageEditorPane(ePortfolio);
+        });
+        
+        //Add Component Button Event Handler
+        
+        
         AddImageButton.setOnAction(e -> {
             //pageEditController.processAddImageRequest();
             AddImage();
@@ -299,6 +312,9 @@ public class ePortfolioGeneratorView {
         });
         AddHyperLinkButton.setOnAction(e -> {
             InputHyperLink();
+        });
+        AddHeaderButton.setOnAction(e -> {
+            
         });
         AddHeaderButton.setOnAction(e -> {
             
@@ -370,24 +386,31 @@ public class ePortfolioGeneratorView {
     public void initPageListToolbar() {
         workspace.getChildren().clear();
         PageListVBox = new VBox(5);
+        PageListVBox.setId("PageListVBox");
+        PageListVBox.getStylesheets().add(STYLE_SHEET_UI);
+        
         PageListEditToolbarVBox = new VBox(10);
         PageListEditToolbarVBox.setAlignment(Pos.TOP_CENTER);
         PageListEditToolbarVBox.setId("PageListToolbarVBox");
-        PageListVBox.setId("PageListVBox");
-        PageListVBox.getStylesheets().add(STYLE_SHEET_UI);
+
+
+        
         PageListEditToolbarVBox.getStylesheets().add(STYLE_SHEET_UI);
         
         PageListPane = new ScrollPane();
         PageListPane.getStyleClass().add("transparent");
         PageListPane.setId("PageListPane");
         PageListPane.setContent(PageListVBox);
+        PageListPane.setPrefWidth(200.00);
+        
         
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         AddPageButton = initChildButton(PageListEditToolbarVBox, ICON_ADD_PAGE,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         RemovePageButton = initChildButton(PageListEditToolbarVBox, ICON_REMOVE_PAGE,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
 
         workspace.getChildren().add(PageListEditToolbarVBox);
-        PageListEditToolbarVBox.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VBOX);        
+        PageListEditToolbarVBox.getStyleClass().add(CSS_CLASS_PAGE_EDIT_VBOX);   
+
         workspace.getChildren().add(PageListPane);
 
 //AddPageButton = new Button();
@@ -400,34 +423,26 @@ public class ePortfolioGeneratorView {
 	
         newEPortfolioButton = initChildButton(fileToolbarPane, ICON_NEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         **/    
+        
+        
     }
     
     public void initPageEditPane() {
-        pageEditorPane = new VBox(5);
-        HBox epfgTitleHBox = new HBox();
+        pageEditorPane = new VBox(20);
         HBox pageTitleHBox = new HBox();
-        Label entertitle = new Label("ePortfolio Title : ");
-        entertitle.setId("titlelabel");
-        ePortfolioTitleField = new TextField(ePortfolio.getTitle());
+
         Label enterPageTitle = new Label("Page Title : ");
         enterPageTitle.setId("titlelabel");
         pageTitleField = new TextField();
-        ePortfolioTitleSubmitButton = new Button("submit");
         pageTitleSubmitButton = new Button("submit");
         
         HBox titleHBox = new HBox();
-        VBox titlelableVBox = new VBox();
-        VBox titleEnterVBox = new VBox();
         
-        epfgTitleHBox.getChildren().add(ePortfolioTitleField);
-        epfgTitleHBox.getChildren().add(ePortfolioTitleSubmitButton);
  
         pageTitleHBox.getChildren().add(pageTitleField);
         pageTitleHBox.getChildren().add(pageTitleSubmitButton);
 
-        titlelableVBox.getChildren().addAll(entertitle,enterPageTitle);
-        titleEnterVBox.getChildren().addAll(epfgTitleHBox,pageTitleHBox);
-        titleHBox.getChildren().addAll(titlelableVBox,titleEnterVBox);
+        titleHBox.getChildren().addAll(enterPageTitle,pageTitleHBox);
         
         pageToolbarPane = new FlowPane();
         HBox pageToolbarHBox = new HBox(5);
@@ -438,6 +453,7 @@ public class ePortfolioGeneratorView {
         AddHeaderButton = initChildButton(pageToolbarHBox, ICON_HEADER, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddTextButton  = initChildButton(pageToolbarHBox,ICON_TEXT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddListButton = initChildButton(pageToolbarHBox,ICON_LIST, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        AddHeaderButton = initChildButton(pageToolbarHBox, ICON_HEADER, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddHyperLinkButton = initChildButton(pageToolbarHBox,ICON_HYPERLINK, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddSlideShowButton = initChildButton(pageToolbarHBox,ICON_SLIDESHOW, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         RemoveComponentButton = initChildButton(pageToolbarHBox,ICON_REMOVE, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
@@ -504,8 +520,12 @@ public class ePortfolioGeneratorView {
         PageListVBox.getChildren().clear();
         ePortfolio = ePortfolioToLoad;
         ObservableList<Page> list = ePortfolio.getPages();
+
         for (Page page : list) {
-            PageEditView listview = new PageEditView(this,page);
+            PageListEditView listview = new PageListEditView(this,page);
+            listview.setPrefWidth(200.00);
+            
+            
             
             PageListVBox.getChildren().add(listview);
         }
@@ -517,12 +537,16 @@ public class ePortfolioGeneratorView {
     //}
     public void reloadPageEditorPane(ePortfolioModel ePortfolioToLoad) {
         ePortfolio = ePortfolioToLoad;
-        ePortfolioTitleField.setText(ePortfolio.getTitle());
-        pageTitleField.setText(ePortfolio.getSelectedPage().getTitle());       
         Page selected = ePortfolio.getSelectedPage();
-        ArrayList<String> list = selected.getComponents();
+        pageTitleField.setText(selected.getTitle());               
+        List<String> list = selected.getComponents();
+        pageComponentVBox.getChildren().clear();
         for (String component : list) {
-            
+            Label typeText = new Label(component);
+            HBox componentBox = new HBox();
+            componentBox.getChildren().add(typeText);
+            pageComponentVBox.getChildren().add(componentBox);
+             
        }
         
         
@@ -547,7 +571,7 @@ public class ePortfolioGeneratorView {
         // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
-           
+           ePortfolio.getSelectedPage().setLayout(result.get());
         }
         else {
             
@@ -569,7 +593,7 @@ public class ePortfolioGeneratorView {
         // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
-           
+           ePortfolio.getSelectedPage().setFont(result.get());
         }
         else {
             
@@ -585,11 +609,11 @@ public class ePortfolioGeneratorView {
         // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
-            
-    }
+            ePortfolio.getSelectedPage().setBackgroundColor(result.get());
+        }
     }    
     private void EnterStudent() {
-        TextInputDialog dialog = new TextInputDialog("Anonymous");
+        TextInputDialog dialog = new TextInputDialog(ePortfolio.getStudent());
         dialog.setTitle("Enter Student Info");
         dialog.setHeaderText("Put your Name");
         dialog.setContentText("Please enter your name:");
@@ -597,20 +621,23 @@ public class ePortfolioGeneratorView {
         // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
-            System.out.println("Your name: " + result.get());
+            ePortfolio.changeStudentName(result.get());
 }
 
     }
     
     private void AddFooter() {
-        TextInputDialog dialog = new TextInputDialog("");
+        TextInputDialog dialog = new TextInputDialog(ePortfolio.getSelectedPage().getFooter());
         dialog.setTitle("Add Footer Text");
         dialog.setHeaderText("Enter Footer Text");
 
         Optional<String> result = dialog.showAndWait();
 
         if (result.isPresent()) {
-
+            ePortfolio.getSelectedPage().setFooter(result.get());
+        }
+        else {
+            
         }
     }
     private void SelectBannerImage() {
@@ -632,7 +659,7 @@ public class ePortfolioGeneratorView {
                     new ExtensionFilter("GIF Files", "*.gif"));
             File selectedFile = fileChooser.showOpenDialog(null);
             if (selectedFile != null) {
-
+                    
                     ImportStatus.setText("File selected: " + selectedFile.getName());
             }
             else {
@@ -679,7 +706,10 @@ public class ePortfolioGeneratorView {
         Button OK = new Button("OK");
         Button Cancel = new Button("Cancel");
         OK.setOnAction(e -> {
-            TextStage.close();
+           ePortfolio.getSelectedPage().AddParagraph(input.getText());
+           this.reloadPageEditorPane(ePortfolio);
+           TextStage.close();
+            
         });
         Cancel.setOnAction(e -> {
             TextStage.close();
@@ -817,19 +847,47 @@ public class ePortfolioGeneratorView {
         
         HBox captionHbox = new HBox(5);
         Label captionlabel = new Label("Caption : ");
-        TextField captionField = new TextField();
+        TextField captionField = new TextField("");
         captionHbox.getChildren().addAll(captionlabel,captionField);
         
         Button chooseFileButton = new Button("Choose File");
+        
+        
+        ImageView view = new ImageView();
+        Label pathLabel = new Label();
+        Label fnLabel = new Label();
+
+        
         chooseFileButton.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
+            
             fileChooser.getExtensionFilters().addAll(new ExtensionFilter("JPG Files", "*.jpg"),
                     new ExtensionFilter("PNG Files", "*.png"),
                     new ExtensionFilter("GIF Files", "*.gif"));
             File selectedFile = fileChooser.showOpenDialog(null);
             if (selectedFile != null) {
-
-                    ImportStatus.setText("File selected: " + selectedFile.getName());
+                    String path = selectedFile.getPath().substring(0, selectedFile.getPath().indexOf(selectedFile.getName()));
+                    String fileName = selectedFile.getName(); 
+                    pathLabel.setText(path);
+                    fnLabel.setText(fileName);
+                    try {
+                        URL fileURL = selectedFile.toURI().toURL();
+                        Image image = new Image(fileURL.toExternalForm());
+                        
+                        view.setImage(image);
+                        double scaledWidth = 500;
+                        double perc = scaledWidth / image.getWidth();
+                        double scaledHeight = image.getHeight() * perc;
+                        view.setFitWidth(scaledWidth);
+                        view.setFitHeight(scaledHeight);
+                        widthField.setText(String.valueOf(image.getWidth()));
+                        heightField.setText(String.valueOf(image.getHeight()));
+                        
+                        
+                        ImportStatus.setText("File selected: " + selectedFile.getName());
+                    } catch (Exception ex) {
+                        
+                    }
             }
             else {
             ImportStatus.setText("File selection cancelled.");
@@ -839,14 +897,21 @@ public class ePortfolioGeneratorView {
         Button OK = new Button("OK");
         Button cancel = new Button("Cancel");
         Confirm.getChildren().addAll(OK,cancel);
+        
+        //ActionHandler for Image Submit Button
+        
         OK.setOnAction(e -> {
+            double width = Double.parseDouble(widthField.getText());
+            double height = Double.parseDouble(heightField.getText());
+            ePortfolio.getSelectedPage().AddImage(pathLabel.getText(),fnLabel.getText(),captionField.getText(),width,height);
             imagechooser.close();
+            this.reloadPageEditorPane(ePortfolio);
         });
         cancel.setOnAction(e -> {
             imagechooser.close();
         });        
         VBox vbox = new VBox(30);
-        vbox.getChildren().addAll(labelHb,widthHBox,heightHbox,captionHbox,chooseFileButton,ImportStatus,Confirm);
+        vbox.getChildren().addAll(labelHb,widthHBox,heightHbox,captionHbox,chooseFileButton,view,ImportStatus,Confirm);
         Scene FileChooserScene = new Scene(vbox,800,800);
         imagechooser.setScene(FileChooserScene);
         imagechooser.show();

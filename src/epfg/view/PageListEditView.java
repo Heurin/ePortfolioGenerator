@@ -17,11 +17,11 @@ import javafx.scene.text.Text;
  *
  * @author shcho
  */
-public class PageEditView extends HBox{
+public class PageListEditView extends HBox{
     String component;
     String title;
     Label label;
-    public PageEditView(ePortfolioGeneratorView ui, Page inputPage) {
+    public PageListEditView(ePortfolioGeneratorView ui, Page inputPage) {
         this.getStyleClass().clear();
         if (ui.getEPortfolio().getSelectedPage() != inputPage){
             this.getStyleClass().add("page_edit_view");
@@ -31,6 +31,7 @@ public class PageEditView extends HBox{
         }
         title = inputPage.getTitle();
         label = new Label(title);
+        label.setWrapText(true);
         getChildren().add(label);
         this.setOnMouseClicked(e -> {
             this.getStyleClass().clear();

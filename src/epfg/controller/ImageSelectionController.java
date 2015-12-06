@@ -9,7 +9,7 @@ import static epfg.LanguagePropertyType.IMAGE_MISSING;
 import static epfg.StartupConstants.PATH_EPORTFOLIO_IMAGES;
 import epfg.error.ErrorHandler;
 import epfg.model.Page;
-import epfg.view.PageEditView;
+import epfg.view.PageListEditView;
 import epfg.view.ePortfolioGeneratorView;
 
 /**
@@ -26,7 +26,7 @@ public class ImageSelectionController {
     public ImageSelectionController() {    }
     
 
-    public void processSelectImage(Page pageToEdit, PageEditView view, ePortfolioGeneratorView ui) {
+    public void processSelectImage(Page pageToEdit, PageListEditView view, ePortfolioGeneratorView ui) {
 	FileChooser imageFileChooser = new FileChooser();
         PropertiesManager props = PropertiesManager.getPropertiesManager();	
 	// SET THE STARTING DIRECTORY

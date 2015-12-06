@@ -7,17 +7,19 @@ package epfg.Contents;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ssm.model.SlideShowModel;
 
 /**
  *
  * @author shcho
  */
 public class SlideShowComponent{
-    Stage primaryStage;
-    Scene primaryScene;
+    SlideShowModel slideshow;
     
     
-    public SlideShowComponent() { }
+    public SlideShowComponent(SlideShowModel initSlideShow){
+        slideshow = initSlideShow;
+    }
     
     
 }

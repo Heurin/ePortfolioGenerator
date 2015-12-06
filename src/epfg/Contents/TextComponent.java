@@ -11,4 +11,20 @@ package epfg.Contents;
  */
 public class TextComponent{
     
+    String type;
+    String text;
+    
+    public TextComponent(String newtype,String newText){
+        type = newtype;
+        text = newText;
+    }
+    public String getType(){
+        return type;
+    }
+    public String getText() {
+        return text;
+    }
+    public void changeText(String newText){
+        text = newText;
+    }
 }

@@ -8,7 +8,7 @@ package epfg.controller;
 import static epfg.StartupConstants.PATH_VIDEOS;
 import epfg.error.ErrorHandler;
 import epfg.model.Page;
-import epfg.view.PageEditView;
+import epfg.view.PageListEditView;
 import epfg.view.ePortfolioGeneratorView;
 import java.io.File;
 import javafx.stage.FileChooser;
@@ -21,7 +21,7 @@ import properties_manager.PropertiesManager;
 public class VideoSelectionController {
     public VideoSelectionController() { }
     
-    public void processSelectVideo(Page pageToEdit, PageEditView view, ePortfolioGeneratorView ui) {
+    public void processSelectVideo(Page pageToEdit, PageListEditView view, ePortfolioGeneratorView ui) {
         FileChooser videoFileChooser = new FileChooser();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         

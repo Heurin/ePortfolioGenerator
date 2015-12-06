@@ -22,21 +22,27 @@ public class PageEditController {
     }
 
     public void processClearComponentsRequest() {
+        
     }
 
     public void processAddSlideShowRequest() {
     }
 
     public void processAddTextRequest() {
+        ParagraphInputController textController = new ParagraphInputController();
+        textController.processUserInput(ui);
     }
 
     public void processAddVideoRequest() {
     }
 
     public void processAddImageRequest() {
+        ImageSelectionController imageController = new ImageSelectionController();
+        imageController.processSelectImage(ui);        
     }
 
     public void processRemoveComponentRequest() {
+        
     }
     
 }

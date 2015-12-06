@@ -6,12 +6,12 @@
 package epfg.model;
 
 import epfg.Contents.ImageComponent;
-import epfg.Contents.SlideShowComponent;
 import epfg.Contents.TextComponent;
 import epfg.Contents.VideoComponent;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.ObservableList;
+import ssm.model.SlideShowModel;
 
 /**
  *
@@ -23,10 +23,12 @@ public class Page {
     List<String> components;
     List<Integer> componentsIndex = new ArrayList();
     List<ImageComponent> images = new ArrayList();
-    List<SlideShowComponent> slides = new ArrayList();
+    List<SlideShowModel> slides = new ArrayList();
     List<TextComponent> texts = new ArrayList();
     List<VideoComponent> videos = new ArrayList();
     String font, footer,layout,backgroundColor;
+    String SelectedType;
+    int SelectedPosition;
     
     //public Page(String newPageTitle)
     
@@ -36,8 +38,40 @@ public class Page {
         hasFooter = false;
         for(int i=0 ; i<initcomponents.size(); i++) {
             
-           // AddComponent(i,initcomponents.get(i));
-        }
+            String nComponent = initcomponents.get(i);
+            if(!nComponent.equals("footer")) {
+                
+
+            }
+
+            if(nComponent.equals("footer")){
+                
+            }
+
+
+            if(nComponent.equals("image")) {
+
+            } 
+            else if(nComponent.equals("video")){
+
+            }
+            else if(nComponent.equals("slideshow")){
+
+            }
+            else if(nComponent.equals("header")){
+
+            }
+            else if(nComponent.equals("text")){
+
+            }
+            else if(nComponent.equals("list")){
+
+            }
+            else if(nComponent.equals("banner")){
+
+            }
+       }
+ 
 
     }
     
@@ -56,6 +90,22 @@ public class Page {
     public List<String> getComponents() {
         return components;
     }
+    public List<ImageComponent> getImageComponents(){
+        return images;
+    }
+    public List<VideoComponent> getVideoComponents() {
+        return videos;
+    }
+    public List<SlideShowModel> getSlideShowComponents() {
+        return slides;
+    }
+    public List<TextComponent> getTextComponents() {
+        return texts;
+    }
+    public List<SlideShowModel> getSlideComponents() {
+        return slides;
+    }
+    
     
     
     //public Slide(String initPageTitle, String[] init)
@@ -63,42 +113,13 @@ public class Page {
     public void setTitle(String ntitle) {
         pageTitle = ntitle;
     }
-  
-    /** #deleted because this function was not enough for my needs
-    public void AddComponent(String nComponent) {
-        if(!nComponent.equals("footer")) {
-            components.add(nComponent);
-            
-        }
-        
-        if(nComponent.equals("footer")){
-            hasFooter = true;
-        }
-        
-        
-        if(nComponent.equals("image")) {
-            
-        } 
-        else if(nComponent.equals("video")){
-            
-        }
-        else if(nComponent.equals("slideshow")){
-            
-        }
-        else if(nComponent.equals("header")){
-            
-        }
-        else if(nComponent.equals("text")){
-            
-        }
-        else if(nComponent.equals("list")){
-            
-        }
-        else if(nComponent.equals("banner")){
-            
-        }
-   }
-  **/  
+    public void setSelectedComponent(String selection,int i) {
+        SelectedType = selection;
+        SelectedPosition = i;
+    }
+    
+    
+
     public void AddImage(String imagePath, String imageFileName, String caption, double height, double width) {
         ImageComponent imgComp = new ImageComponent(imagePath, imageFileName, caption,  height, width);
         components.add("image");
@@ -122,12 +143,36 @@ public class Page {
         componentsIndex.add(index);
         texts.add(paraComp);        
     }
-    public void AddSlideShow() {
-        //SlideShowComponent slidecomp = new SlideShowComponent();
-        
+    public void AddSlideShow(SlideShowModel slideshow) {
+        components.add("slideshow");
+        int index = slides.size();
+        componentsIndex.add(index);
+        slides.add(slideshow);    
     }
     
-
+public void RemoveParagraph() {
+    
+}
+public void RemovePhoto() {
+    
+}
+public void RemoveVideo() {
+    
+}
+public void RemoveSlideShow() {
+    
+}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public void setLayout(String customLayout) {
         layout = customLayout;
     }
@@ -152,5 +197,12 @@ public class Page {
     }
     public String getFont() {
         return font;
+    }
+    public String getSelectedType() {
+        return SelectedType;
+    }
+    
+    public int getSelectedPosition() {
+        return SelectedPosition;
     }
 }

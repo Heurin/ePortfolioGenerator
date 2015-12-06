@@ -6,6 +6,7 @@
 package epfg.view;
 
 import epfg.model.Page;
+import java.util.ArrayList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;

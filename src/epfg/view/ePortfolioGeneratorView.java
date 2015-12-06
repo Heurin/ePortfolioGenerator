@@ -158,7 +158,6 @@ public class ePortfolioGeneratorView {
     Button SelectBannerImageButton;
     Button ColorChooserButton;
     Button AddListButton;
-    Button AddHyperLinkButton;
     Button AddHeaderButton;
     ePortfolioModel ePortfolio;
     ePortfolioFileManager fileManager;
@@ -261,23 +260,21 @@ public class ePortfolioGeneratorView {
         
         
         AddImageButton.setOnAction(e -> {
-            //pageEditController.processAddImageRequest();
-            AddImage();
+            pageEditController.processAddImageRequest();
+
         });
         AddVideoButton.setOnAction(e -> {
-            //pageEditController.processAddVideoRequest();
-            AddVideo();
+            pageEditController.processAddVideoRequest();
         });
         AddTextButton.setOnAction(e -> {
-            //pageEditController.processAddTextRequest();
-            AddText();
+            pageEditController.processAddTextRequest();
         });
         AddSlideShowButton.setOnAction(e -> {
             //pageEditController.processAddSlideShowRequest();
             AddSlideShow();
         });
         RemoveComponentButton.setOnAction(e -> {
-            //pageEditController.processRemoveComponentRequest();
+            pageEditController.processRemoveComponentRequest();
         });
         ClearComponentButton.setOnAction(e -> {
             //pageEditController.processClearComponentsRequest();
@@ -309,9 +306,6 @@ public class ePortfolioGeneratorView {
         });
         AddListButton.setOnAction (e -> {
             AddList();
-        });
-        AddHyperLinkButton.setOnAction(e -> {
-            InputHyperLink();
         });
         AddHeaderButton.setOnAction(e -> {
             
@@ -454,7 +448,6 @@ public class ePortfolioGeneratorView {
         AddTextButton  = initChildButton(pageToolbarHBox,ICON_TEXT, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddListButton = initChildButton(pageToolbarHBox,ICON_LIST, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddHeaderButton = initChildButton(pageToolbarHBox, ICON_HEADER, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        AddHyperLinkButton = initChildButton(pageToolbarHBox,ICON_HYPERLINK, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         AddSlideShowButton = initChildButton(pageToolbarHBox,ICON_SLIDESHOW, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         RemoveComponentButton = initChildButton(pageToolbarHBox,ICON_REMOVE, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         ClearComponentButton = initChildButton(pageToolbarHBox,ICON_CLEAR, TOOLTIP_NEW_EPORTFOLIO,CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
@@ -542,9 +535,8 @@ public class ePortfolioGeneratorView {
         List<String> list = selected.getComponents();
         pageComponentVBox.getChildren().clear();
         for (String component : list) {
-            Label typeText = new Label(component);
-            HBox componentBox = new HBox();
-            componentBox.getChildren().add(typeText);
+            ComponentEditView componentBox = new ComponentEditView(this, component);
+            //componentBox.getChildren().add(typeText);
             pageComponentVBox.getChildren().add(componentBox);
              
        }
@@ -654,9 +646,12 @@ public class ePortfolioGeneratorView {
         Button chooseFileButton = new Button("Choose File");
         chooseFileButton.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().addAll(new ExtensionFilter("JPG Files", "*.jpg"),
-                    new ExtensionFilter("PNG Files", "*.png"),
-                    new ExtensionFilter("GIF Files", "*.gif"));
+            
+            fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+            );
             File selectedFile = fileChooser.showOpenDialog(null);
             if (selectedFile != null) {
                     
@@ -690,37 +685,6 @@ public class ePortfolioGeneratorView {
         
     }
 
-    private void AddText() {
-        Stage TextStage = new Stage();
-        
-        VBox vbox = new VBox(5);
-        
-        Label label = new Label("Enter Paragraph");
-        
-        TextArea input = new TextArea();
-        input.setPrefSize(500,500);
-        input.setWrapText(true);
-
-        
-        HBox confirmation = new HBox(5);
-        Button OK = new Button("OK");
-        Button Cancel = new Button("Cancel");
-        OK.setOnAction(e -> {
-           ePortfolio.getSelectedPage().AddParagraph(input.getText());
-           this.reloadPageEditorPane(ePortfolio);
-           TextStage.close();
-            
-        });
-        Cancel.setOnAction(e -> {
-            TextStage.close();
-        });
-        confirmation.getChildren().addAll(OK,Cancel);
-        
-        vbox.getChildren().addAll(label,input,confirmation);
-        Scene TextScene = new Scene(vbox,800,800);
-        TextStage.setScene(TextScene);
-        TextStage.show();
-    }
     private void InputHyperLink(){
         Stage TextStage = new Stage();
         HBox confirmation = new HBox(5);
@@ -774,148 +738,8 @@ public class ePortfolioGeneratorView {
         TextStage.setScene(TextScene);
         TextStage.show();
     }
-    private void AddVideo() {
-        Stage videochooser = new Stage();
-        videochooser.setTitle("Choose Video");
-        Label label = new Label("Add Video File");
-        HBox labelHb = new HBox();
-        labelHb.getChildren().add(label);
-        
-        HBox widthHBox = new HBox(5);
-        Label widthlabel = new Label("Width : ");
-        TextField widthField = new TextField();
-        widthHBox.getChildren().addAll(widthlabel,widthField);
-        
-        HBox heightHbox = new HBox(5);
-        Label heightlabel = new Label("Height : ");
-        TextField heightField = new TextField();
-        heightHbox.getChildren().addAll(heightlabel,heightField);
-        Text ImportStatus = new Text();
-        
-        HBox captionHbox = new HBox(5);
-        Label captionlabel = new Label("Caption : ");
-        TextField captionField = new TextField();
-        captionHbox.getChildren().addAll(captionlabel,captionField);
-        
-        Button chooseFileButton = new Button("Choose File");
-        chooseFileButton.setOnAction(e -> {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().addAll(new ExtensionFilter("MP4 Files", "*.mp4"));
-            File selectedFile = fileChooser.showOpenDialog(null);
-            if (selectedFile != null) {
 
-                    ImportStatus.setText("File selected: " + selectedFile.getName());
-            }
-            else {
-            ImportStatus.setText("File selection cancelled.");
-            }            
-        });
-        HBox Confirm = new HBox();
-        Button OK = new Button("OK");
-        Button cancel = new Button("Cancel");
-        Confirm.getChildren().addAll(OK,cancel);
-        OK.setOnAction(e -> {
-            videochooser.close();
-        });
-        cancel.setOnAction(e -> {
-            videochooser.close();
-        });        
-        VBox vbox = new VBox(30);
-        vbox.getChildren().addAll(labelHb,widthHBox,heightHbox,captionHbox,chooseFileButton,ImportStatus,Confirm);
-        Scene FileChooserScene = new Scene(vbox,800,800);
-        videochooser.setScene(FileChooserScene);
-        videochooser.show();       
-    }
 
-    private void AddImage() {
-        Stage imagechooser = new Stage();
-        imagechooser.setTitle("Choose Image");
-        Label label = new Label("Add Image File");
-        HBox labelHb = new HBox();
-        labelHb.getChildren().add(label);
-        
-        HBox widthHBox = new HBox(5);
-        Label widthlabel = new Label("Width : ");
-        TextField widthField = new TextField();
-        widthHBox.getChildren().addAll(widthlabel,widthField);
-        
-        HBox heightHbox = new HBox(5);
-        Label heightlabel = new Label("Height : ");
-        TextField heightField = new TextField();
-        heightHbox.getChildren().addAll(heightlabel,heightField);
-        Text ImportStatus = new Text();
-        
-        HBox captionHbox = new HBox(5);
-        Label captionlabel = new Label("Caption : ");
-        TextField captionField = new TextField("");
-        captionHbox.getChildren().addAll(captionlabel,captionField);
-        
-        Button chooseFileButton = new Button("Choose File");
-        
-        
-        ImageView view = new ImageView();
-        Label pathLabel = new Label();
-        Label fnLabel = new Label();
-
-        
-        chooseFileButton.setOnAction(e -> {
-            FileChooser fileChooser = new FileChooser();
-            
-            fileChooser.getExtensionFilters().addAll(new ExtensionFilter("JPG Files", "*.jpg"),
-                    new ExtensionFilter("PNG Files", "*.png"),
-                    new ExtensionFilter("GIF Files", "*.gif"));
-            File selectedFile = fileChooser.showOpenDialog(null);
-            if (selectedFile != null) {
-                    String path = selectedFile.getPath().substring(0, selectedFile.getPath().indexOf(selectedFile.getName()));
-                    String fileName = selectedFile.getName(); 
-                    pathLabel.setText(path);
-                    fnLabel.setText(fileName);
-                    try {
-                        URL fileURL = selectedFile.toURI().toURL();
-                        Image image = new Image(fileURL.toExternalForm());
-                        
-                        view.setImage(image);
-                        double scaledWidth = 500;
-                        double perc = scaledWidth / image.getWidth();
-                        double scaledHeight = image.getHeight() * perc;
-                        view.setFitWidth(scaledWidth);
-                        view.setFitHeight(scaledHeight);
-                        widthField.setText(String.valueOf(image.getWidth()));
-                        heightField.setText(String.valueOf(image.getHeight()));
-                        
-                        
-                        ImportStatus.setText("File selected: " + selectedFile.getName());
-                    } catch (Exception ex) {
-                        
-                    }
-            }
-            else {
-            ImportStatus.setText("File selection cancelled.");
-            }            
-        });
-        HBox Confirm = new HBox();
-        Button OK = new Button("OK");
-        Button cancel = new Button("Cancel");
-        Confirm.getChildren().addAll(OK,cancel);
-        
-        //ActionHandler for Image Submit Button
-        
-        OK.setOnAction(e -> {
-            double width = Double.parseDouble(widthField.getText());
-            double height = Double.parseDouble(heightField.getText());
-            ePortfolio.getSelectedPage().AddImage(pathLabel.getText(),fnLabel.getText(),captionField.getText(),width,height);
-            imagechooser.close();
-            this.reloadPageEditorPane(ePortfolio);
-        });
-        cancel.setOnAction(e -> {
-            imagechooser.close();
-        });        
-        VBox vbox = new VBox(30);
-        vbox.getChildren().addAll(labelHb,widthHBox,heightHbox,captionHbox,chooseFileButton,view,ImportStatus,Confirm);
-        Scene FileChooserScene = new Scene(vbox,800,800);
-        imagechooser.setScene(FileChooserScene);
-        imagechooser.show();
-    }
     
     private void webtransition() {
         if (transitionstate ==0) {

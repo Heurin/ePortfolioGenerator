@@ -9,11 +9,18 @@ import epfg.Contents.HeaderComponent;
 import epfg.Contents.ImageComponent;
 import epfg.Contents.TextComponent;
 import epfg.Contents.VideoComponent;
+import epfg.controller.ImageSelectionController;
+import epfg.controller.ListInputController;
+import epfg.controller.ParagraphInputController;
+import epfg.controller.VideoSelectionController;
+import epfg.view.ePortfolioGeneratorView;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import ssm.model.SlideShowModel;
+import ssm.view.SlideShowMakerView;
 
 /**
  *
@@ -173,6 +180,60 @@ public class Page {
         list.add(initList);
         
     }
+    
+    public void EditComponent(int index,ePortfolioGeneratorView ui){
+        String s = components.get(index);
+        int r = componentsIndex.get(index);        
+        if(s.equals("paragraph")){
+            ParagraphInputController a = new ParagraphInputController();
+            a.EditParagraph(this, texts.get(r) , index ,ui);
+        }
+        if(s.equals("list")) {
+            ListInputController a = new ListInputController();
+            a.ModifyList(this ,list.get(r),index,ui);
+        }
+        if(s.equals("video")) {
+            VideoSelectionController a = new VideoSelectionController();
+            a.EditVideo(this,videos.get(r),index,ui);
+        }
+        if(s.equals("image")){
+            ImageSelectionController a = new ImageSelectionController();
+            a.EditImage(this,images.get(r),index,ui);
+        }
+        if(s.equals("slideshow")){
+                SlideShowMakerView view = new SlideShowMakerView(this,slides.get(r),index, ui);
+                Stage SlideStage = new Stage();
+                view.startUI(SlideStage,"Make SlideShow");
+        }
+        
+
+    }
+    
+    public void EditParagraph(String inputP, String inputF,int index) {
+        TextComponent paraComp = new TextComponent(inputF, inputP);
+        int compIndex = componentsIndex.get(index);
+        texts.set(compIndex, paraComp);        
+    }
+    public void EditList(ArrayList<String> inputList, int index) {
+        int compIndex = componentsIndex.get(index);
+        list.set(compIndex, inputList);
+    }
+    public void EditImage(String imagePath, String imageFileName, String caption, double height, double width, String position,int index){
+        ImageComponent imgComp = new ImageComponent(imagePath, imageFileName, caption,  height, width, position);
+        int compIndex = componentsIndex.get(index);
+        images.set(compIndex, imgComp);
+    }
+    
+    public void EditVideo(String videoPath, String videoFileName,String caption, double height, double width,int index) {
+        VideoComponent vidComp = new VideoComponent(videoPath, videoFileName,caption,  height, width);
+        int compIndex = componentsIndex.get(index);
+        videos.set(compIndex,vidComp);
+    }
+    public void EditSlideShow(SlideShowModel load, int index){
+        int compIndex = componentsIndex.get(index);
+        slides.set(compIndex,load);
+    }
+    
     
 public void RemoveComponent(int index) {
    

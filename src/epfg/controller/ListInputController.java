@@ -8,6 +8,7 @@ package epfg.controller;
 import static epfg.StartupConstants.CSS_CLASS_BUTTONS;
 import static epfg.StartupConstants.ICON_REMOVE;
 import static epfg.StartupConstants.PATH_ICONS;
+import epfg.model.Page;
 import epfg.model.ePortfolioModel;
 import epfg.view.ePortfolioGeneratorView;
 import java.util.ArrayList;
@@ -88,6 +89,55 @@ public class ListInputController {
 
         }
     }
+    
+    public void ModifyList(Page a, ArrayList<String> input,int index,ePortfolioGeneratorView ui) {
+        Stage TextStage = new Stage();
+        
+        FlowPane mainpane = new FlowPane();
+        VBox vbox = new VBox(5);
+        
+        Label label = new Label("Make a List");
+
+        HBox toolbar = new HBox(10);
+        
+        Listvbox = new VBox(5);
+        
+        Button AddList = new Button("Add List");
+        toolbar.getChildren().add(AddList);
+        
+        AddList.setOnAction(e -> {
+            fields.add("");
+            this.reloadListFields(fields);
+        });
+                
+        HBox confirmation = new HBox(5);
+        Button OK = new Button("OK");
+        Button Cancel = new Button("Cancel");
+        confirmation.getChildren().addAll(OK,Cancel);
+        OK.setOnAction(e -> {
+            ePortfolioModel ePortfolio = ui.getEPortfolio();
+            a.EditList(fields,index);
+            ui.reloadPageEditorPane(ePortfolio);            
+            TextStage.close();
+        });
+        Cancel.setOnAction(e -> {
+            TextStage.close();
+        });        
+        vbox.getChildren().addAll(label,toolbar,Listvbox,confirmation);
+        mainpane.getChildren().add(vbox);
+        Scene TextScene = new Scene(mainpane,800,800);
+        fields = input;
+        this.reloadListFields(fields);
+        TextStage.setScene(TextScene);
+        TextStage.show();
+    }
+    
+    
+    
+    
+    
+    
+    
     
     private class listbox extends HBox {
         private listbox(int pos,ArrayList<String> fields) {

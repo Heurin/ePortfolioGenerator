@@ -47,8 +47,10 @@ public class ComponentEditView extends HBox{
         typeLabel.setPrefWidth(200.00);
         Button edit = new Button("edit");
         Button remove = new Button("remove");
-        this.getChildren().addAll(typeLabel,edit, remove);
-        
+        if(!component.equals("slideshow"))
+            this.getChildren().addAll(typeLabel,edit, remove);
+        else
+            this.getChildren().addAll(typeLabel, remove);
         this.setOnMouseClicked(e-> {
             this.getStyleClass().clear();
             this.getStyleClass().add("page_selection");
@@ -60,26 +62,13 @@ public class ComponentEditView extends HBox{
         });
         
         edit.setOnMouseClicked(e-> {
-            
+            ePortfolio.getSelectedPage().EditComponent(pos, ui);
         });
         
         remove.setOnAction(e -> {
             ePortfolio.getSelectedPage().RemoveComponent(pos);
             ui.reloadPageEditorPane(ePortfolio);
         });
-    }
-    
-    public void changeText(String newText) {
-        
-    }
-    public void changeImage(Image newImage) {
-        
-    }
-    public void changeVideo() {
-        
-    }
-    public void changeFooter() {
-        
     }
 
 }

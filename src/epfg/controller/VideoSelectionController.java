@@ -5,6 +5,7 @@
  */
 package epfg.controller;
 
+import epfg.Contents.VideoComponent;
 import epfg.LanguagePropertyType;
 import static epfg.StartupConstants.PATH_VIDEOS;
 import epfg.error.ErrorHandler;
@@ -92,7 +93,7 @@ public class VideoSelectionController {
             double width = Double.parseDouble(widthField.getText());
             double height = Double.parseDouble(heightField.getText());
             ePortfolioModel ePortfolio = ui.getEPortfolio();
-            ePortfolio.getSelectedPage().AddVideo(path.getText(),fn.getText(),captionField.getText(),width,height);
+            ePortfolio.getSelectedPage().AddVideo(path.getText(),fn.getText(),captionField.getText(),height,width);
             videochooser.close();
             ui.reloadPageEditorPane(ePortfolio);            
         });
@@ -105,8 +106,10 @@ public class VideoSelectionController {
         videochooser.setScene(FileChooserScene);
         videochooser.show();       
     }
-    public void processEditVideo(ePortfolioGeneratorView ui) {
-        PropertiesManager props = PropertiesManager.getPropertiesManager();
+
+
+    public void EditVideo(Page aThis, VideoComponent get, int index, ePortfolioGeneratorView ui) {
+         PropertiesManager props = PropertiesManager.getPropertiesManager();
         
         Stage videochooser = new Stage();
         videochooser.setTitle("Choose Video");
@@ -116,27 +119,36 @@ public class VideoSelectionController {
         
         HBox widthHBox = new HBox(5);
         Label widthlabel = new Label("Width : ");
-        TextField widthField = new TextField();
+        TextField widthField = new TextField(Double.toString(get.getWidth()));
         widthHBox.getChildren().addAll(widthlabel,widthField);
         
         HBox heightHbox = new HBox(5);
         Label heightlabel = new Label("Height : ");
-        TextField heightField = new TextField();
+        TextField heightField = new TextField(Double.toString(get.getHeight()));
         heightHbox.getChildren().addAll(heightlabel,heightField);
         Text ImportStatus = new Text();
         
         HBox captionHbox = new HBox(5);
         Label captionlabel = new Label("Caption : ");
-        TextField captionField = new TextField();
+        TextField captionField = new TextField(get.getCaption());
         captionHbox.getChildren().addAll(captionlabel,captionField);
+        
+        
+
+        Text path = new Text();
+        Text fn = new Text();        
+        
         
         Button chooseFileButton = new Button("Choose File");
         chooseFileButton.setOnAction(e -> {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().addAll(new ExtensionFilter("MP4 Files", "*.mp4"));
             File selectedFile = fileChooser.showOpenDialog(null);
+            path.setText(selectedFile.getPath());
+            fn.setText(selectedFile.getName());
             if (selectedFile != null) {
-
+                    path.setText(selectedFile.getPath());
+                    fn.setText(selectedFile.getName());
                     ImportStatus.setText("File selected: " + selectedFile.getName());
             }
             else {
@@ -150,7 +162,12 @@ public class VideoSelectionController {
         Button cancel = new Button("Cancel");
         Confirm.getChildren().addAll(OK,cancel);
         OK.setOnAction(e -> {
+            double width = Double.parseDouble(widthField.getText());
+            double height = Double.parseDouble(heightField.getText());
+            ePortfolioModel ePortfolio = ui.getEPortfolio();
+            aThis.EditVideo(path.getText(),fn.getText(),captionField.getText(),height,width,index);
             videochooser.close();
+            ui.reloadPageEditorPane(ePortfolio);            
         });
         cancel.setOnAction(e -> {
             videochooser.close();
@@ -159,6 +176,6 @@ public class VideoSelectionController {
         vbox.getChildren().addAll(labelHb,widthHBox,heightHbox,captionHbox,chooseFileButton,ImportStatus,Confirm);
         Scene FileChooserScene = new Scene(vbox,800,800);
         videochooser.setScene(FileChooserScene);
-        videochooser.show();               
+        videochooser.show();      
     }
 }

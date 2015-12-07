@@ -1,5 +1,6 @@
 package ssm.view;
 
+import epfg.model.Page;
 import epfg.view.ePortfolioGeneratorView;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -104,7 +105,8 @@ public class SlideShowMakerView {
     private SlideShowEditController editController;
     
     ePortfolioGeneratorView ui;
-    
+    Page page;
+    int pos;
     /**
      * Default constructor, it initializes the GUI for use, but does not yet
      * load all the language-dependent controls, that needs to be done via the
@@ -120,6 +122,14 @@ public class SlideShowMakerView {
 	errorHandler = new ErrorHandler(this);
         
         ui = initUi;
+    }
+    
+    public SlideShowMakerView(Page initPage, SlideShowModel a, int index,  ePortfolioGeneratorView initUi){
+        slideShow = a;
+        errorHandler = new ErrorHandler(this);
+        ui = initUi;
+        page = initPage;
+        pos = index;
     }
 
     // ACCESSOR METHODS
@@ -160,6 +170,25 @@ public class SlideShowMakerView {
         this.updateToolbarControls(false);
         this.reloadSlideShowPane(slideShow);
     }
+    
+     public void editUI(Stage initPrimaryStage, String windowTitle) {
+	// THE TOOLBAR ALONG THE NORTH
+
+        // INIT THE CENTER WORKSPACE CONTROLS BUT DON'T ADD THEM
+	// TO THE WINDOW YET
+	initWorkspace();
+
+	// NOW SETUP THE EVENT HANDLERS
+	initEventHandlers();
+        
+
+	// AND FINALLY START UP THE WINDOW (WITHOUT THE WORKSPACE)
+	// KEEP THE WINDOW FOR LATER
+	primaryStage = initPrimaryStage;
+	editWindow(windowTitle);
+        this.updateToolbarControls(false);
+        this.reloadSlideShowPane(slideShow);
+    }   
 
     // UI SETUP HELPER METHODS
     private void initWorkspace() {
@@ -256,6 +285,51 @@ public class SlideShowMakerView {
 	primaryStage.setScene(primaryScene);
 	primaryStage.show();
     }
+
+    private void editWindow(String windowTitle) {
+	// SET THE WINDOW TITLE
+	primaryStage.setTitle(windowTitle);
+        Image icon = new Image("file:"+PATH_ICONS+ICON_APPLICATION);
+        primaryStage.getIcons().add(icon);
+        
+	// GET THE SIZE OF THE SCREEN
+	Screen screen = Screen.getPrimary();
+	Rectangle2D bounds = screen.getVisualBounds();
+
+	// AND USE IT TO SIZE THE WINDOW
+	primaryStage.setX(bounds.getMinX());
+	primaryStage.setY(bounds.getMinY());
+	primaryStage.setWidth(800);
+	primaryStage.setHeight(800);
+
+        // SETUP THE UI, NOTE WE'LL ADD THE WORKSPACE LATER
+	ssmPane = new BorderPane();
+        ssmPane.setId("main-application");
+        ssmPane.getStylesheets().add(STYLE_SHEET_UI);	
+	primaryScene = new Scene(ssmPane);
+        HBox Confirmation = new HBox();
+        Button OK = new Button("OK");
+        Button Cancel = new Button("Cancel");
+        OK.setOnAction(e -> {
+            page.EditSlideShow(slideShow,pos);
+            primaryStage.close();
+            ui.reloadPageEditorPane(ui.getEPortfolio());
+        });
+        Cancel.setOnAction(e -> {
+            primaryStage.close();
+        });
+        Confirmation.getChildren().addAll(OK,Cancel);
+	ssmPane.setBottom(Confirmation);
+        // NOW TIE THE SCENE TO THE WINDOW, SELECT THE STYLESHEET
+	// WE'LL USE TO STYLIZE OUR GUI CONTROLS, AND OPEN THE WINDOW
+	primaryScene.getStylesheets().add(STYLE_SHEET_UI);
+	primaryStage.setScene(primaryScene);
+	primaryStage.show();
+    }    
+    
+    
+    
+    
     
     /**
      * This helps initialize buttons in a toolbar, constructing a custom button

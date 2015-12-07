@@ -5,6 +5,7 @@
  */
 package epfg.controller;
 
+import epfg.Contents.TextComponent;
 import epfg.view.ePortfolioGeneratorView;
 
 /**
@@ -49,6 +50,8 @@ public class PageEditController {
         HeaderInputController headercon = new HeaderInputController();
         headercon.processData(ui);
     }
+    
+
     
 
     

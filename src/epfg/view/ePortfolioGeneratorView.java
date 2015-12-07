@@ -273,9 +273,6 @@ public class ePortfolioGeneratorView {
             //pageEditController.processClearComponentsRequest();
             pageComponentVBox.getChildren().clear();
         });
-        RevertButton.setOnAction(e -> {
-            pageEditController.processRevertChangeRequest();
-        });
         SelectLayoutButton.setOnAction (e -> {
            layoutSelector(); 
         });
@@ -303,9 +300,6 @@ public class ePortfolioGeneratorView {
         AddHeaderButton.setOnAction(e -> {
             pageEditController.processAddHeaderRequest();
         });
-        AddHeaderButton.setOnAction(e -> {
-            
-        });
         
     }
     private void initFileToolbar(){
@@ -320,9 +314,9 @@ public class ePortfolioGeneratorView {
 	PropertiesManager props = PropertiesManager.getPropertiesManager();
         newEPortfolioButton = initChildButton(fileToolbarPane, ICON_NEW_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
         loadEPortfolioButton = initChildButton(fileToolbarPane, ICON_LOAD_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        saveEPortfolioButton = initChildButton(fileToolbarPane, ICON_SAVE_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        saveAsEPortfolioButton = initChildButton(fileToolbarPane, ICON_SAVE_AS_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
-        exportButton = initChildButton(fileToolbarPane, ICON_EXPORT,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
+        saveEPortfolioButton = initChildButton(fileToolbarPane, ICON_SAVE_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, true);
+        saveAsEPortfolioButton = initChildButton(fileToolbarPane, ICON_SAVE_AS_EPORTFOLIO,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, true);
+        exportButton = initChildButton(fileToolbarPane, ICON_EXPORT,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, true);
         exitButton = initChildButton(fileToolbarPane, ICON_EXIT,	TOOLTIP_NEW_EPORTFOLIO,	    CSS_CLASS_HORIZONTAL_TOOLBAR_BUTTON, false);
     }
     private void initWindow(String appTitle){

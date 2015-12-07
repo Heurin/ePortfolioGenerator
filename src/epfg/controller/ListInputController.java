@@ -51,7 +51,7 @@ public class ListInputController {
         
         AddList.setOnAction(e -> {
             fields.add("");
-            reloadListFields();
+            this.reloadListFields();
         });
                 
         HBox confirmation = new HBox(5);

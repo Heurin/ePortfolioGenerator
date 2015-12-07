@@ -7,6 +7,7 @@ package epfg.controller;
 
 import epfg.view.ePortfolioGeneratorView;
 import javafx.collections.FXCollections;
+import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -36,8 +37,7 @@ public class HeaderInputController {
         
         Label headerlabel = new Label("choose Header");
         
-        ObservableList<String> headeroptions = 
-        FXCollections.observableArrayList(
+        ObservableList<String> headeroptions = observableArrayList(
             "h1",
             "h2",
             "h3",
@@ -51,8 +51,7 @@ public class HeaderInputController {
         
         Label fontlabel = new Label("Choose Font");
 
-        ObservableList<String> fontoptions = 
-        FXCollections.observableArrayList(
+        ObservableList<String> fontoptions = observableArrayList(
             "Montserrat",
             "Indie Flower",
             "Sigmar One",

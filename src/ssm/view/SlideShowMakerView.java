@@ -1,5 +1,6 @@
 package ssm.view;
 
+import epfg.view.ePortfolioGeneratorView;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
@@ -102,12 +103,14 @@ public class SlideShowMakerView {
     // THIS CONTROLLER RESPONDS TO SLIDE SHOW EDIT BUTTONS
     private SlideShowEditController editController;
     
+    ePortfolioGeneratorView ui;
+    
     /**
      * Default constructor, it initializes the GUI for use, but does not yet
      * load all the language-dependent controls, that needs to be done via the
      * startUI method after the user has selected a language.
      */
-    public SlideShowMakerView() {
+    public SlideShowMakerView(ePortfolioGeneratorView initUi) {
 	// FIRST HOLD ONTO THE FILE MANAGER
 	
 	// MAKE THE DATA MANAGING MODEL
@@ -115,6 +118,8 @@ public class SlideShowMakerView {
 
 	// WE'LL USE THIS ERROR HANDLER WHEN SOMETHING GOES WRONG
 	errorHandler = new ErrorHandler(this);
+        
+        ui = initUi;
     }
 
     // ACCESSOR METHODS
@@ -236,7 +241,9 @@ public class SlideShowMakerView {
         Button OK = new Button("OK");
         Button Cancel = new Button("Cancel");
         OK.setOnAction(e -> {
+            ui.getEPortfolio().getSelectedPage().AddSlideShow(slideShow);
             primaryStage.close();
+            ui.reloadPageEditorPane(ui.getEPortfolio());
         });
         Cancel.setOnAction(e -> {
             primaryStage.close();

@@ -8,6 +8,7 @@ package epfg.controller;
 import static epfg.StartupConstants.CSS_CLASS_BUTTONS;
 import static epfg.StartupConstants.ICON_REMOVE;
 import static epfg.StartupConstants.PATH_ICONS;
+import epfg.model.ePortfolioModel;
 import epfg.view.ePortfolioGeneratorView;
 import java.util.ArrayList;
 import javafx.scene.Scene;
@@ -30,6 +31,7 @@ public class ListInputController {
     ArrayList<String> fields = new ArrayList();    
     VBox Listvbox;
     Label listnumb;
+    int current;
     
     public ListInputController() {
         
@@ -46,12 +48,12 @@ public class ListInputController {
         
         Listvbox = new VBox(5);
         
-        Button AddList = new Button();
+        Button AddList = new Button("Add List");
         toolbar.getChildren().add(AddList);
         
         AddList.setOnAction(e -> {
             fields.add("");
-            this.reloadListFields();
+            this.reloadListFields(fields);
         });
                 
         HBox confirmation = new HBox(5);
@@ -59,8 +61,10 @@ public class ListInputController {
         Button Cancel = new Button("Cancel");
         confirmation.getChildren().addAll(OK,Cancel);
         OK.setOnAction(e -> {
-            
-            ui.reloadPageEditorPane(ui.getEPortfolio());
+            ePortfolioModel ePortfolio = ui.getEPortfolio();
+            ePortfolio.getSelectedPage().AddList(fields);
+            ui.reloadPageEditorPane(ePortfolio);            
+            TextStage.close();
         });
         Cancel.setOnAction(e -> {
             TextStage.close();
@@ -71,27 +75,41 @@ public class ListInputController {
         TextStage.setScene(TextScene);
         TextStage.show();
     }
-    private void reloadListFields() {
+    private void reloadListFields(ArrayList<String> lists) {
         Listvbox.getChildren().clear();
-        ArrayList<String> copy = new ArrayList();
+        //ArrayList<String> copy = new ArrayList();
         for(int i = 0; i<fields.size(); i++) {
-            String a = fields.get(i);
-            HBox list = new HBox();
-            listnumb = new Label();
-            listnumb.setText(new Integer(i+1).toString());
-            TextField element = new TextField(a);
-            String imagePath = "file:" + PATH_ICONS + ICON_REMOVE;
-            Image buttonImage = new Image(imagePath);
-            Button button = new Button();
-            button.getStyleClass().add(CSS_CLASS_BUTTONS);
-            button.setGraphic(new ImageView(buttonImage));            
-            list.getChildren().addAll(listnumb,element,button);
-            copy.add(a);
-            button.setOnAction(e -> {
-                copy.remove(Integer.parseInt(listnumb.getText()));
-                reloadListFields();
-            });
+            listbox list = new listbox(i,lists);
+
+
+            Listvbox.getChildren().add(list);
+           // copy.add(a);
+            
+
         }
     }
     
+    private class listbox extends HBox {
+        private listbox(int pos,ArrayList<String> fields) {
+            int position = pos;
+            TextField element = new TextField(fields.get(pos));
+            String imagePath = "file:" + PATH_ICONS + ICON_REMOVE;
+            Image buttonImage = new Image(imagePath);
+            listnumb = new Label();
+            listnumb.setText(new Integer(position+1).toString());            
+            Button button = new Button();
+            button.getStyleClass().add(CSS_CLASS_BUTTONS);
+            button.setGraphic(new ImageView(buttonImage));            
+            getChildren().addAll(listnumb,element,button);  
+            
+            element.setOnKeyTyped(e-> {
+                fields.set(position, element.getText());
+            });
+            button.setOnAction(e -> {
+                fields.remove(position);
+                reloadListFields(fields);
+            });            
+        }
+        
+    }
 }

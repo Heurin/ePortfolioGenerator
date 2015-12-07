@@ -44,8 +44,10 @@ public class ComponentEditView extends HBox{
         ui = initUi;
         component = type;
         typeLabel = new Label(type);
+        typeLabel.setPrefWidth(200.00);
+        Button edit = new Button("edit");
         Button remove = new Button("remove");
-        this.getChildren().addAll(typeLabel, remove);
+        this.getChildren().addAll(typeLabel,edit, remove);
         
         this.setOnMouseClicked(e-> {
             this.getStyleClass().clear();
@@ -56,6 +58,11 @@ public class ComponentEditView extends HBox{
             }
             ui.reloadPageEditorPane(ePortfolio);
         });
+        
+        edit.setOnMouseClicked(e-> {
+            
+        });
+        
         remove.setOnAction(e -> {
             ePortfolio.getSelectedPage().RemoveComponent(pos);
             ui.reloadPageEditorPane(ePortfolio);

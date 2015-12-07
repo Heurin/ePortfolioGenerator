@@ -707,6 +707,18 @@ public class ePortfolioGeneratorView {
             imagechooser.close();
         });        
         VBox vbox = new VBox(30);
+        
+        if(ePortfolio.getSelectedPage().hasBanner()) {
+            Image image = ePortfolio.getSelectedPage().getBannerImage();
+            imageView.setImage(image);
+            double scaledWidth = 500;
+            double perc = scaledWidth / image.getWidth();
+            double scaledHeight = image.getHeight() * perc;
+            imageView.setFitWidth(scaledWidth);
+            imageView.setFitHeight(scaledHeight);            
+           
+        }
+        
         vbox.getChildren().addAll(labelHb,chooseFileButton,imageView,ImportStatus,Confirm);
         Scene FileChooserScene = new Scene(vbox,800,800);
         imagechooser.setScene(FileChooserScene);
@@ -715,7 +727,7 @@ public class ePortfolioGeneratorView {
     }
 
     private void AddSlideShow() {
-        SlideShowMakerView view = new SlideShowMakerView();
+        SlideShowMakerView view = new SlideShowMakerView(this);
         Stage SlideStage = new Stage();
         view.startUI(SlideStage,"Make SlideShow");
         

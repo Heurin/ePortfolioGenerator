@@ -21,7 +21,7 @@ import ssm.model.SlideShowModel;
  */
 public class Page {
     String pageTitle;
-    boolean hasFooter;
+    boolean hasFooter,hasBanner;
     List<String> components;
     List<Integer> componentsIndex = new ArrayList();
     List<ImageComponent> images = new ArrayList();
@@ -29,7 +29,7 @@ public class Page {
     List<TextComponent> texts = new ArrayList();
     List<VideoComponent> videos = new ArrayList();
     List<HeaderComponent>headers = new ArrayList();
-    
+    List<ArrayList<String>> list = new ArrayList();
     Image BannerImage;
     
     String font, footer,layout,backgroundColor;
@@ -85,6 +85,7 @@ public class Page {
         pageTitle = initTitle;
         components = new ArrayList<> ();
         hasFooter = false;
+        hasBanner = false;
         layout = "1";
         backgroundColor = "default";
         font = "default";
@@ -157,6 +158,20 @@ public class Page {
         int index = slides.size();
         componentsIndex.add(index);
         slides.add(slideshow);    
+    }
+    public void AddHeader(String inputH, String inputF, String inputP) {
+        HeaderComponent headerComp = new HeaderComponent(inputH,inputF, inputP);
+        components.add("header");
+        int index = headers.size();
+        componentsIndex.add(index);
+        headers.add(headerComp);         
+    }
+    public void AddList(ArrayList<String> initList){
+        components.add("list");
+        int index =list.size();
+        componentsIndex.add(index);
+        list.add(initList);
+        
     }
     
 public void RemoveComponent(int index) {
@@ -235,7 +250,16 @@ public void RemoveComponent(int index) {
                 componentsIndex.set(t, t-1);
             }                
         }
-    }    
+    }
+    if(removeType.equals("list")) {
+        list.remove(position);
+        for (int i=index; i<components.size(); i++) {
+            if(components.get(i).equals("list")){
+                int t = componentsIndex.get(i);
+                componentsIndex.set(t, t-1);
+            }                
+        }
+    }
 }
     
     
@@ -285,6 +309,7 @@ public void RemoveComponent(int index) {
     public void setBannerImage(String path, String name) {
         String imagePath = "file:" + path + name;
         BannerImage = new Image(imagePath);
+        hasBanner = true;
     }
     
     public Image getBannerImage() {
@@ -294,13 +319,12 @@ public void RemoveComponent(int index) {
     public boolean hasFooter() {
         return hasFooter;
     }
-
-    public void AddHeader(String inputH, String inputF, String inputP) {
-        HeaderComponent headerComp = new HeaderComponent(inputH,inputF, inputP);
-        components.add("header");
-        int index = headers.size();
-        componentsIndex.add(index);
-        headers.add(headerComp);         
+    public boolean hasBanner() {
+        return hasBanner;
     }
+    public List<ArrayList<String>> getLists() {
+        return list;
+    }
+
     
 }
